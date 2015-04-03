@@ -6,7 +6,7 @@ void WATCard::deposit( unsigned int amount ) {
     balance += amount;
 }
 void WATCard::withdraw( unsigned int amount ){
-    // It is the caller's responsible to ensure that there are sufficient funds.
+    // It is the caller's responsibility to ensure that there are sufficient funds.
     balance -= amount;
 }
 unsigned int WATCard::getBalance() {
