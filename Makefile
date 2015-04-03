@@ -10,9 +10,16 @@ BANK_OBJECTS = bank.o testBank.o
 BANK_DEPENDS = ${BANK_OBJECTS:.o=.d}
 BANK_EXEC = bank
 
+PARENT_OBJECTS = printer.o bank.o parent.o testParent.o
+PARENT_DEPENDS = ${PARENT_OBJECTS:.o=.d}
+PARENT_EXEC = parent
+
 all : ${EXEC}		# build all executables
 
 ${BANK_EXEC} : ${BANK_OBJECTS}
+	${CXX} ${CXXFLAGS} $^ -o $@
+
+${PARENT_EXEC} : ${PARENT_OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 ${EXEC} : ${OBJECTS}
