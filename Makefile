@@ -6,7 +6,14 @@ OBJECTS = config.o printer.o bank.o parent.o watcard.o watcardOffice.o student.o
 DEPENDS = ${OBJECTS:.o=.d}			# substitute ".o" with ".d"
 EXEC = soda
 
+BANK_OBJECTS = bank.o testBank.o
+BANK_DEPENDS = ${BANK_OBJECTS:.o=.d}
+BANK_EXEC = bank
+
 all : ${EXEC}		# build all executables
+
+${BANK_EXEC} : ${BANK_OBJECTS}
+	${CXX} ${CXXFLAGS} $^ -o $@
 
 ${EXEC} : ${OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
