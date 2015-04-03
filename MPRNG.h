@@ -1,3 +1,6 @@
+#ifndef __MPRNG_H__
+#define __MPRNG_H__
+
 _Monitor MPRNG {
     unsigned int seed_; 
   public:
@@ -9,3 +12,4 @@ _Monitor MPRNG {
     unsigned int operator()( unsigned int l, unsigned int u ) { return operator()( u - l ) + l; } // [l,u]
 }; // MPRNG
 
+#endif // __MPRNG_H__
