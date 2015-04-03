@@ -3,7 +3,7 @@
 
 _Monitor Bank {
     int * balances;
-    uCondition cond;
+    uCondition * cond;  // One for each student.
   public:
     Bank( unsigned int numStudents );
     ~Bank();

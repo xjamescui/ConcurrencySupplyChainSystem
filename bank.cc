@@ -1,6 +1,8 @@
 #include "bank.h"
 
-Bank::Bank( unsigned int numStudents ) : balances( new int[ numStudents ] ) {
+Bank::Bank( unsigned int numStudents ) : 
+        balances( new int[ numStudents ] ), 
+	cond( new uCondition[ numStudents ]) {
     for ( int id = 0; id < numStudents; ++id ) {
 	balances[id] = 0;
     }
@@ -8,6 +10,7 @@ Bank::Bank( unsigned int numStudents ) : balances( new int[ numStudents ] ) {
 
 Bank::~Bank() {
     delete [] balances;
+    delete [] cond;
 }
 
 void Bank::deposit( unsigned int id, unsigned int amount ) {
@@ -20,7 +23,7 @@ void Bank::deposit( unsigned int id, unsigned int amount ) {
     // This solution requires that there will never be multiple threads 
     // calling withdraw() for the same student at a time.
     if ( prevBalance < 0 && balances[id] >= 0 ) {
-	cond.signal();
+	cond[id].signal();
     }
 }
 
@@ -29,6 +32,6 @@ void Bank::withdraw( unsigned int id, unsigned int amount ) {
 
     if ( balances[id] < 0 ) {
 	// Insufficient funds.  Wait until there are sufficient funds.	
-	cond.wait();
+	cond[id].wait();
     }
 }
