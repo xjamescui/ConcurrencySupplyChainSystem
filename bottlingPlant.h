@@ -1,3 +1,7 @@
+#ifndef __BOTTLINGPLANT_H__
+#define __BOTTLINGPLANT_H__
+
+#include "nameServer.h"
 
 _Task BottlingPlant {
     void main();
@@ -9,3 +13,4 @@ _Task BottlingPlant {
     void getShipment( unsigned int cargo[] );
 };
 
+#endif // __BOTTLINGPLANT_H__

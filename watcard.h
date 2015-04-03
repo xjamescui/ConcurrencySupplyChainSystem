@@ -1,3 +1,7 @@
+#ifndef __WATCARD_H__
+#define __WATCARD_H__
+
+#include <uFuture.h>
 
 class WATCard {
     WATCard( const WATCard & );            // prevent copying
@@ -10,3 +14,4 @@ class WATCard {
     unsigned int getBalance();
 };
 
+#endif // __WATCARD_H__

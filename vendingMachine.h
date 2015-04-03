@@ -1,8 +1,14 @@
+#ifndef __VENDINGMACHINE_H__
+#define __VENDINGMACHINE_H__
 
+#include "printer.h"
+#include "watcard.h"
+
+_Task NameServer;
 _Task VendingMachine {
     void main();
   public:
-    enum Flavours { ... };                 // flavours of soda (YOU DEFINE)
+    enum Flavours { sweet=1 };             //  TODO: flavours of soda (YOU DEFINE)
     _Event Funds {};                       // insufficient funds
     _Event Stock {};                       // out of stock for particular flavour
     VendingMachine( Printer &prt, NameServer &nameServer, unsigned int id, unsigned int sodaCost,
@@ -14,3 +20,4 @@ _Task VendingMachine {
     _Nomutex unsigned int getId();
 };
 
+#endif // __VENDINGMACHINE_H__

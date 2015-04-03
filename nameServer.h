@@ -1,3 +1,8 @@
+#ifndef __NAMESERVER_H__
+#define __NAMESERVER_H__
+
+#include "printer.h"
+#include "vendingMachine.h"
 
 _Task NameServer {
     void main();
@@ -8,3 +13,4 @@ _Task NameServer {
     VendingMachine **getMachineList();
 };
 
+#endif // __NAMESREVER_H__
