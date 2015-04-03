@@ -17,15 +17,11 @@ void uMain::main() {
 
     string filename = "soda.config";
     int seed = getpid();
-
     switch (argc) {
         case 3:
-            filename = argv[1];
             seed = atoi(argv[2]);
-            break;
         case 2:
             filename = argv[1];
-            break;
         case 1:
             break;
         default:
