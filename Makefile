@@ -10,13 +10,20 @@ BANK_OBJECTS = bank.o testBank.o
 BANK_DEPENDS = ${BANK_OBJECTS:.o=.d}
 BANK_EXEC = bank
 
+STUDENT_OBJECTS = printer.o nameServer.o watcardOffice.o vendingMachine.o student.o testStudent.o
+STUDENT_DEPENDS = ${STUDENT_OBJECTS:.o=.d}
+STUDENT_EXEC = student
+
 all : ${EXEC}		# build all executables
 
 ${BANK_EXEC} : ${BANK_OBJECTS}
+	${CXX} ${CXXFLAGS} $^ -o $@
+
+${STUDENT_EXEC} : ${STUDENT_OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 ${EXEC} : ${OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 clean :						# remove files that can be regenerated
-	rm -f *.d *.o ${EXEC}
+	rm -f *.d *.o ${EXEC} ${BANK_EXEC}

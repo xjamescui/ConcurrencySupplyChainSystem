@@ -12,4 +12,6 @@ _Monitor MPRNG {
     unsigned int operator()( unsigned int l, unsigned int u ) { return operator()( u - l ) + l; } // [l,u]
 }; // MPRNG
 
+extern MPRNG g_randGenerator;
+
 #endif // __MPRNG_H__
