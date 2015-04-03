@@ -26,4 +26,4 @@ ${EXEC} : ${OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 clean :						# remove files that can be regenerated
-	rm -f *.d *.o ${EXEC} ${BANK_EXEC}
+	rm -f *.d *.o ${EXEC} ${BANK_EXEC} ${STUDENT_EXEC}

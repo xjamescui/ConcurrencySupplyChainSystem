@@ -10,14 +10,13 @@ Student::Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffic
 
 void Student::main() {
 
-    // decide on quantity
+    unsigned int numFlavours = 4;
+    unsigned int initialBalance = 5;
     unsigned int purchaseQuantity = g_randGenerator(1, this->maxPurchases);
-
-    // decide on flavor
-    int flavour =g_randGenerator(3);
+    int flavour =g_randGenerator(numFlavours - 1);
 
     // creates watcard from watcard office with $5 in balance
-    WATCard::FWATCard fwatCard = this->cardOffice->create(this->studentId, 5);
+    WATCard::FWATCard fwatCard = this->cardOffice->create(this->studentId, initialBalance);
 
     // get vending machine location from nameserver
     VendingMachine* vendingMachine = this->nameServer->getMachine(this->studentId);
