@@ -29,7 +29,7 @@ _Task Withdrawer {
 	    const unsigned int randAmount = mprng(10);
 	    cout << "Attempting to withdraw $" << randAmount << " from student " << randStudent << endl;
 	    bank.withdraw( randStudent, randAmount );
-	    cout << "Withdrawn $" << randAmount << " from student " << randStudent << endl;
+	    cout << "Withdrew $" << randAmount << " from student " << randStudent << endl;
 	}
     }
   public:

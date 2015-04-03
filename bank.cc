@@ -3,7 +3,8 @@
 Bank::Bank( unsigned int numStudents ) : 
         balances( new int[ numStudents ] ), 
 	cond( new uCondition[ numStudents ]) {
-    for ( int id = 0; id < numStudents; ++id ) {
+
+    for ( unsigned int id = 0; id < numStudents; ++id ) {
 	balances[id] = 0;
     }
 }
