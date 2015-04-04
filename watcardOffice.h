@@ -12,7 +12,6 @@ _Task WATCardOffice {
     Printer & prt;
     Bank & bank;
     const unsigned int NUM_COURIERS;
-    uCondition cond;
     struct Args {
 	unsigned int sid;
 	unsigned int amount;
