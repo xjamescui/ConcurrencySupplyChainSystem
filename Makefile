@@ -14,12 +14,26 @@ STUDENT_OBJECTS = printer.o nameServer.o watcardOffice.o vendingMachine.o studen
 STUDENT_DEPENDS = ${STUDENT_OBJECTS:.o=.d}
 STUDENT_EXEC = student
 
+PARENT_OBJECTS = printer.o bank.o parent.o testParent.o
+PARENT_DEPENDS = ${PARENT_OBJECTS:.o=.d}
+PARENT_EXEC = parent
+
+WATCARD_OBJECTS = watcard.o testWatcard.o
+WATCARD_DEPENDS = ${WATCARD_OBJECTS:.o=.d}
+WATCARD_EXEC = watcard 
+
 all : ${EXEC}		# build all executables
 
 ${BANK_EXEC} : ${BANK_OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 ${STUDENT_EXEC} : ${STUDENT_OBJECTS}
+	${CXX} ${CXXFLAGS} $^ -o $@
+
+${PARENT_EXEC} : ${PARENT_OBJECTS}
+	${CXX} ${CXXFLAGS} $^ -o $@
+
+${WATCARD_EXEC} : ${WATCARD_OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 ${EXEC} : ${OBJECTS}
