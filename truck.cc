@@ -44,7 +44,7 @@ void Truck::main() {
 
         numVendingMachinesRestocked = 0;
 
-        // restock each vending machine
+        // Cyclically restock each vending machine
         for (unsigned int i= startingVendingMachine; i < NUM_VENDING_MACHINES; i = (i+1) % NUM_VENDING_MACHINES) {
 
             if (this->truckEmpty()) {
