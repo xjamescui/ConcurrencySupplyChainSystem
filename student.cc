@@ -23,7 +23,27 @@ void Student::main() {
 
     // buy the sodas
     for (unsigned int i = 0; i < purchaseQuantity; i++) {
-        vendingMachine->buy((VendingMachine::Flavours)flavour, *(fwatCard()));
+        yield(g_randGenerator(1,10));
+        while (true) {
+            try{
+                try {
+                    vendingMachine->buy((VendingMachine::Flavours)flavour, *(fwatCard()));
+                    break;
+                } catch (VendingMachine::Funds& f) {
+                    // need to transfer money
+                    fwatCard = this->cardOffice->transfer(this->studentId, (initialBalance + vendingMachine->cost()), fwatCard());
+                    continue;
+                } catch (VendingMachine::Stock& s) {
+                    // out of stock, get a new vending machine
+                    vendingMachine = this->nameServer->getMachine(this->studentId);
+                    continue;
+                }
+            } catch (WATCardOffice::Lost& l) {
+                // retry: creates watcard from watcard office with $5 in balance
+                fwatCard.reset();
+                fwatCard = this->cardOffice->create(this->studentId, initialBalance);
+            }
+        } // while
     } // for
 
 } // main
