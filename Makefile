@@ -18,6 +18,14 @@ WATCARD_OBJECTS = watcard.o testWatcard.o
 WATCARD_DEPENDS = ${WATCARD_OBJECTS:.o=.d}
 WATCARD_EXEC = watcard 
 
+PLANT_OBJECTS = printer.o watcard.o nameServer.o vendingMachine.o bottlingPlant.o truck.o testBottlingPlant.o
+PLANT_DEPENDS = ${PLANT_OBJECTS:.o=.d}
+PLANT_EXEC = bottlingPlant
+
+TRUCK_OBJECTS = printer.o nameServer.o bottlingPlant.o truck.o testTruck.o
+TRUCK_DEPENDS = ${TRUCK_OBJECTS:.o=.d}
+TRUCK_EXEC = truck
+
 all : ${EXEC}		# build all executables
 
 ${BANK_EXEC} : ${BANK_OBJECTS}
@@ -29,8 +37,14 @@ ${VM_EXEC} : ${VM_OBJECTS}
 ${WATCARD_EXEC} : ${WATCARD_OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
+${PLANT_EXEC} : ${PLANT_OBJECTS}
+	${CXX} ${CXXFLAGS} $^ -o $@
+
+${TRUCK_EXEC} : ${TRUCK_OBJECTS}
+	${CXX} ${CXXFLAGS} $^ -o $@
+
 ${EXEC} : ${OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 clean :						# remove files that can be regenerated
-	rm -f *.d *.o ${EXEC}
+	rm -f *.d *.o ${EXEC} ${BANK_EXEC} ${TRUCK_EXEC} ${PLANT_EXEC} ${VM_EXEC}

@@ -1,9 +1,23 @@
 #ifndef __BOTTLINGPLANT_H__
 #define __BOTTLINGPLANT_H__
 
+#include "printer.h"
 #include "nameServer.h"
+#include "config.h"
 
 _Task BottlingPlant {
+    Printer* printer;
+    NameServer* nameServer;
+
+    const unsigned int NUM_VENDING_MACHINES;
+    const unsigned int MAX_SHIPPED_PER_FLAVOUR;
+    const unsigned int MAX_STOCK_PER_FLAVOUR;
+    const unsigned int TIME_BETWEEN_SHIPMENTS;
+
+    bool shutdown;
+
+    unsigned int produced[NUM_FLAVOURS];
+    void produce();
     void main();
   public:
     _Event Shutdown {};                    // shutdown plant

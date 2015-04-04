@@ -12,7 +12,6 @@ _Task VendingMachine {
     unsigned int stockLevel[4]; // the stock level of each flavour
     const unsigned int SODA_COST;
     const unsigned int MAX_STOCK_PER_FLAVOUR; 
-    const unsigned int NUM_FLAVOURS;
     bool restocking;
     void main();
   public:
