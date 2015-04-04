@@ -64,9 +64,11 @@ void WATCardOffice::Courier::main() {
 	    //WatCard lost. 
 	    delete card;
 	    job->result.exception( new Lost );
+	} else {
+	    card->deposit( job->amount );
+	    job->result.delivery( card );
 	}
 
-	card->deposit( job->amount );
-	job->result.delivery( card );
+	delete job;
     }
 }
