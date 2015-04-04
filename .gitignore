@@ -1,4 +1,9 @@
 soda
+bank
+truck
+student
+vendingMachine
+watcard
 *.orig
 *.o
 *.d
