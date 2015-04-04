@@ -1,5 +1,4 @@
 #include "vendingMachine.h"
-#include "config.h"
 
 VendingMachine::VendingMachine( Printer &prt, NameServer &nameServer, unsigned int id, unsigned int sodaCost, unsigned int maxStockPerFlavour ) :
     printer(&prt),
