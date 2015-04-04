@@ -14,12 +14,19 @@ VM_OBJECTS = printer.o watcard.o nameServer.o vendingMachine.o testVendingMachin
 VM_DEPENDS = ${VM_OBJECTS:.o=.d}
 VM_EXEC = vendingMachine
 
+WATCARD_OBJECTS = watcard.o testWatcard.o
+WATCARD_DEPENDS = ${WATCARD_OBJECTS:.o=.d}
+WATCARD_EXEC = watcard 
+
 all : ${EXEC}		# build all executables
 
 ${BANK_EXEC} : ${BANK_OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 ${VM_EXEC} : ${VM_OBJECTS}
+	${CXX} ${CXXFLAGS} $^ -o $@
+
+${WATCARD_EXEC} : ${WATCARD_OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 ${EXEC} : ${OBJECTS}
