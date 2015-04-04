@@ -25,11 +25,17 @@ void BottlingPlant::getShipment( unsigned int cargo[] ) {
     } // for
 } // getShipment
 
+
+/**
+ * Produce rand(MAX_SHIPPED_PER_FLAVOUR) stocks for each flavour
+ */
 void BottlingPlant::produce() {
     for (unsigned int i = 0; i < NUM_FLAVOURS; i += 1) {
         this->produced[i] = g_randGenerator(MAX_SHIPPED_PER_FLAVOUR);
     } // for
 } // produce
+
+
 
 void BottlingPlant::main() {
 
