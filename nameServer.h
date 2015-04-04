@@ -2,8 +2,8 @@
 #define __NAMESERVER_H__
 
 #include "printer.h"
-#include "vendingMachine.h"
 
+_Task VendingMachine;
 _Task NameServer {
     void main();
   public:
