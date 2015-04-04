@@ -10,9 +10,16 @@ BANK_OBJECTS = bank.o testBank.o
 BANK_DEPENDS = ${BANK_OBJECTS:.o=.d}
 BANK_EXEC = bank
 
+WATCARD_OBJECTS = watcard.o testWatcard.o
+WATCARD_DEPENDS = ${WATCARD_OBJECTS:.o=.d}
+WATCARD_EXEC = watcard 
+
 all : ${EXEC}		# build all executables
 
 ${BANK_EXEC} : ${BANK_OBJECTS}
+	${CXX} ${CXXFLAGS} $^ -o $@
+
+${WATCARD_EXEC} : ${WATCARD_OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 ${EXEC} : ${OBJECTS}
