@@ -10,7 +10,7 @@ Student::Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffic
 
 void Student::main() {
 
-    unsigned int numFlavours = 4;
+    unsigned int numFlavours = 4; // TODO remove this later, use NUM_FLAVOURS in config.h
     unsigned int initialBalance = 5;
     unsigned int purchaseQuantity = g_randGenerator(1, this->maxPurchases);
     int flavour =g_randGenerator(numFlavours - 1);
