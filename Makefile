@@ -14,6 +14,14 @@ VM_OBJECTS = printer.o watcard.o nameServer.o vendingMachine.o testVendingMachin
 VM_DEPENDS = ${VM_OBJECTS:.o=.d}
 VM_EXEC = vendingMachine
 
+STUDENT_OBJECTS = printer.o nameServer.o watcardOffice.o vendingMachine.o student.o testStudent.o
+STUDENT_DEPENDS = ${STUDENT_OBJECTS:.o=.d}
+STUDENT_EXEC = student
+
+PARENT_OBJECTS = printer.o bank.o parent.o testParent.o
+PARENT_DEPENDS = ${PARENT_OBJECTS:.o=.d}
+PARENT_EXEC = parent
+
 WATCARD_OBJECTS = watcard.o testWatcard.o
 WATCARD_DEPENDS = ${WATCARD_OBJECTS:.o=.d}
 WATCARD_EXEC = watcard 
@@ -26,12 +34,22 @@ TRUCK_OBJECTS = printer.o nameServer.o bottlingPlant.o truck.o testTruck.o
 TRUCK_DEPENDS = ${TRUCK_OBJECTS:.o=.d}
 TRUCK_EXEC = truck
 
+WATCARD_OFFICE_OBJECTS = printer.o bank.o watcard.o watcardOffice.o testWatcardOffice.o
+WATCARD_OFFICE_DEPENDS = ${WATCARD_OFFICE_OBJECTS:.o=.d}
+WATCARD_OFFICE_EXEC = watcardOffice 
+
 all : ${EXEC}		# build all executables
 
 ${BANK_EXEC} : ${BANK_OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 ${VM_EXEC} : ${VM_OBJECTS}
+	${CXX} ${CXXFLAGS} $^ -o $@
+
+${STUDENT_EXEC} : ${STUDENT_OBJECTS}
+	${CXX} ${CXXFLAGS} $^ -o $@
+
+${PARENT_EXEC} : ${PARENT_OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 ${WATCARD_EXEC} : ${WATCARD_OBJECTS}
@@ -43,8 +61,11 @@ ${PLANT_EXEC} : ${PLANT_OBJECTS}
 ${TRUCK_EXEC} : ${TRUCK_OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
+${WATCARD_OFFICE_EXEC} : ${WATCARD_OFFICE_OBJECTS}
+	${CXX} ${CXXFLAGS} $^ -o $@
+
 ${EXEC} : ${OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 clean :						# remove files that can be regenerated
-	rm -f *.d *.o ${EXEC} ${BANK_EXEC} ${TRUCK_EXEC} ${PLANT_EXEC} ${VM_EXEC}
+	rm -f *.d *.o ${EXEC} ${BANK_EXEC} ${VM_EXEC} ${STUDENT_EXEC} ${PARENT_EXEC} ${WATCARD_EXEC} ${PLANT_EXEC} ${TRUCK_EXEC} ${WATCARD_OFFICE_EXEC}

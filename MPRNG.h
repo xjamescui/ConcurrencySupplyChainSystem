@@ -13,4 +13,5 @@ _Monitor MPRNG {
 }; // MPRNG
 
 extern MPRNG g_randGenerator; // global
+
 #endif // __MPRNG_H__
