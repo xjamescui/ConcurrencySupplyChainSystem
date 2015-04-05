@@ -6,6 +6,10 @@ OBJECTS = config.o printer.o bank.o parent.o watcard.o watcardOffice.o student.o
 DEPENDS = ${OBJECTS:.o=.d}			# substitute ".o" with ".d"
 EXEC = soda
 
+NS_OBJECTS = printer.o vendingMachine.o nameServer.o testNameServer.o
+NS_DEPENDS = ${NS_OBJECTS:.o=.d}
+NS_EXEC = nameServer
+
 BANK_OBJECTS = bank.o testBank.o
 BANK_DEPENDS = ${BANK_OBJECTS:.o=.d}
 BANK_EXEC = bank
@@ -19,6 +23,9 @@ WATCARD_DEPENDS = ${WATCARD_OBJECTS:.o=.d}
 WATCARD_EXEC = watcard 
 
 all : ${EXEC}		# build all executables
+
+${NS_EXEC} : ${NS_OBJECTS}
+	${CXX} ${CXXFLAGS} $^ -o $@
 
 ${BANK_EXEC} : ${BANK_OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
