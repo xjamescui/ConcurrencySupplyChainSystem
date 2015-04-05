@@ -3,9 +3,6 @@
 #include "bank.h"
 #include "watcardOffice.h"
 #include <assert.h>
-#include <iostream>
-
-using namespace std;
 
 MPRNG g_randGenerator(getpid());
 
