@@ -12,6 +12,7 @@ _Task WATCardOffice {
     Printer & prt;
     Bank & bank;
     const unsigned int NUM_COURIERS;
+    bool shutdown;                         // Whether or not the office is currently being shut down.
     struct Args {
 	unsigned int sid;
 	unsigned int amount;
@@ -33,7 +34,10 @@ _Task WATCardOffice {
     queue<Job *> jobs; 
 
     _Task Courier {                        // communicates with bank
+	WATCardOffice & watcardOffice;
 	void main();
+      public:
+	Courier( WATCardOffice & watcardOffice );
     };                 
 
     void main();

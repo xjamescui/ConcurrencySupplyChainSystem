@@ -22,7 +22,7 @@ WATCARD_OBJECTS = watcard.o testWatcard.o
 WATCARD_DEPENDS = ${WATCARD_OBJECTS:.o=.d}
 WATCARD_EXEC = watcard 
 
-WATCARD_OFFICE_OBJECTS = watcardOffice.o testWatcardOffice.o
+WATCARD_OFFICE_OBJECTS = printer.o bank.o watcard.o watcardOffice.o testWatcardOffice.o
 WATCARD_OFFICE_DEPENDS = ${WATCARD_OFFICE_OBJECTS:.o=.d}
 WATCARD_OFFICE_EXEC = watcardOffice 
 

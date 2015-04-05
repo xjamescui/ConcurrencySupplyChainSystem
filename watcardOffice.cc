@@ -1,10 +1,14 @@
 #include "watcardOffice.h"
 #include "MPRNG.h"
+#include <iostream>
+
+using namespace std;
 
 WATCardOffice::WATCardOffice( Printer &prt, Bank &bank, unsigned int numCouriers ) :
         prt( prt ),
         bank( bank ),
-        NUM_COURIERS( numCouriers ) {
+        NUM_COURIERS( numCouriers ),
+        shutdown( false ) {
 }
 
 WATCardOffice::~WATCardOffice() {
@@ -30,13 +34,21 @@ WATCard::FWATCard WATCardOffice::transfer( unsigned int sid, unsigned int amount
 }
 
 WATCardOffice::Job* WATCardOffice::requestWork() {    
+    if ( shutdown ) {
+	return NULL;
+    }
+
     Job * job = jobs.front();
     jobs.pop();
     return job;
 }
 
 void WATCardOffice::main() {
-    Courier couriers[ NUM_COURIERS ];
+    Courier * couriers[ NUM_COURIERS ];
+
+    for ( unsigned int i = 0; i < NUM_COURIERS; ++i ) {
+	couriers[i] = new Courier( *this );
+    }
 
     while ( true ) {
 	_Accept( ~WATCardOffice ) {
@@ -45,19 +57,37 @@ void WATCardOffice::main() {
 	} or _Accept( create, transfer ) {
 	}
     }
+
+    shutdown = true;
+    for ( unsigned int i = 0; i < NUM_COURIERS; ++i ) {
+	// Allow the couriers to run to completion.
+	_Accept( requestWork );
+    }
+
+    for ( unsigned int i = 0; i < NUM_COURIERS; ++i ) {
+	delete couriers[i];
+    }
 }
+
+WATCardOffice::Courier::Courier( WATCardOffice & watcardOffice ) : watcardOffice( watcardOffice ) {}
 
 void WATCardOffice::Courier::main() {
     while ( true ) {
-	Job * job = requestWork();
-	WATCard * card = job->card;
+	Job * job = watcardOffice.requestWork();
+
+	if ( ! job ) {
+	    break;
+	}
+
+	const Args args = job->args;
+	WATCard * card = args.card;
 
 	if ( ! card ) {
 	    // No card provided.  Create new card.
 	    card = new WATCard();
 	}
 
-	bank.withdraw( job->sid, job->amount );
+	watcardOffice.bank.withdraw( args.sid, args.amount );
 
 	// 1/6 chance of losing WatCard.
 	if ( g_randGenerator( 5 ) == 0 ) {
@@ -65,7 +95,7 @@ void WATCardOffice::Courier::main() {
 	    delete card;
 	    job->result.exception( new Lost );
 	} else {
-	    card->deposit( job->amount );
+	    card->deposit( args.amount );
 	    job->result.delivery( card );
 	}
 
