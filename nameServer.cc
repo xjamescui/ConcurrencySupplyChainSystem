@@ -12,27 +12,27 @@ NameServer::NameServer( Printer &prt, unsigned int numVendingMachines, unsigned 
 
     for (unsigned int i = 0; i < NUM_STUDENTS; i += 1) {
         this->assigned[i] = (i % NUM_VENDING_MACHINES);
-    } // for 
+    } // for
 } // constructor
 
 
-NameServer::~NameServer(){
-   for (unsigned int i = 0; i < NUM_VENDING_MACHINES; i += 1) {
-       this->machines[i] = NULL;
-   } // for 
+NameServer::~NameServer() {
+    for (unsigned int i = 0; i < NUM_VENDING_MACHINES; i += 1) {
+        this->machines[i] = NULL;
+    } // for
 
-   delete [] this->machines;
-   delete [] this->assigned;
+    delete [] this->machines;
+    delete [] this->assigned;
 } // destructor
 
 
-void NameServer::VMregister( VendingMachine *vendingmachine ){
+void NameServer::VMregister( VendingMachine *vendingmachine ) {
     this->machines[vendingmachine->getId()] = vendingmachine;
     this->registrationCount += 1;
 } // VMregister
 
 
-VendingMachine* NameServer::getMachine( unsigned int id ){
+VendingMachine* NameServer::getMachine( unsigned int id ) {
     VendingMachine *machine = this->machines[this->assigned[id]];
     // increment assignment
     this->assigned[id] = (this->assigned[id] + 1) % NUM_VENDING_MACHINES;
@@ -40,18 +40,19 @@ VendingMachine* NameServer::getMachine( unsigned int id ){
 } // getMachine
 
 
-VendingMachine** NameServer::getMachineList(){
+VendingMachine** NameServer::getMachineList() {
     return this->machines;
 } // getMachineList
 
 
-void NameServer::main(){
+void NameServer::main() {
 
     for (;;) {
         _Accept(~NameServer) {
             break;
-        } or _Accept (VMregister, getMachineList) {
-        } or _When(this->registrationCount > 0) _Accept( getMachine ){}
+        }
+        or _Accept (VMregister, getMachineList) {
+        } or _When(this->registrationCount > 0) _Accept( getMachine ) {}
     } // for
 
 } // main
