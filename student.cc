@@ -1,5 +1,6 @@
 #include "student.h"
 #include "vendingMachine.h"
+#include "config.h"
 
 Student::Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffice, unsigned int id, unsigned int maxPurchases ) : 
     printer(prt), 
@@ -10,28 +11,27 @@ Student::Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffic
 
 void Student::main() {
 
-    unsigned int numFlavours = 4; // TODO remove this later, use NUM_FLAVOURS in config.h
-    unsigned int initialBalance = 5;
-    unsigned int purchaseQuantity = g_randGenerator(1, MAX_PURCHASES);
-    int flavour =g_randGenerator(numFlavours - 1);
+    const unsigned int INITIAL_BALANCE = 5;
+    const unsigned int PURCHASE_QUANTITY = g_randGenerator(1, MAX_PURCHASES);
+    const unsigned int FLAVOUR = g_randGenerator(NUM_FLAVOURS - 1);
 
     // creates watcard from watcard office with $5 in balance
-    WATCard::FWATCard fwatCard = this->cardOffice.create(STUDENT_ID, initialBalance);
+    WATCard::FWATCard fwatCard = this->cardOffice.create(STUDENT_ID, INITIAL_BALANCE);
 
     // get vending machine location from nameserver
     VendingMachine* vendingMachine = this->nameServer.getMachine(STUDENT_ID);
 
     // buy the sodas
-    for (unsigned int i = 0; i < purchaseQuantity; i++) {
+    for (unsigned int i = 0; i < PURCHASE_QUANTITY; i++) {
         yield(g_randGenerator(1,10));
         while (true) {
             try{
                 try {
-                    vendingMachine->buy((VendingMachine::Flavours)flavour, *(fwatCard()));
+                    vendingMachine->buy((VendingMachine::Flavours)FLAVOUR, *(fwatCard()));
                     break;
                 } catch (VendingMachine::Funds& f) {
                     // need to transfer money
-                    fwatCard = this->cardOffice.transfer(STUDENT_ID, (initialBalance + vendingMachine->cost()), fwatCard());
+                    fwatCard = this->cardOffice.transfer(STUDENT_ID, (INITIAL_BALANCE + vendingMachine->cost()), fwatCard());
                     continue;
                 } catch (VendingMachine::Stock& s) {
                     // out of stock, get a new vending machine
@@ -41,7 +41,7 @@ void Student::main() {
             } catch (WATCardOffice::Lost& l) {
                 // retry: creates watcard from watcard office with $5 in balance
                 fwatCard.reset();
-                fwatCard = this->cardOffice.create(STUDENT_ID, initialBalance);
+                fwatCard = this->cardOffice.create(STUDENT_ID, INITIAL_BALANCE);
             }
         } // while
     } // for
