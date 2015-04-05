@@ -1,9 +1,9 @@
 #include "vendingMachine.h"
 
 VendingMachine::VendingMachine( Printer &prt, NameServer &nameServer, unsigned int id, unsigned int sodaCost, unsigned int maxStockPerFlavour ) :
-    printer(&prt),
-    nameServer(&nameServer),
-    id(id),
+    printer(prt),
+    nameServer(nameServer),
+    ID(id),
     SODA_COST(sodaCost),
     MAX_STOCK_PER_FLAVOUR(maxStockPerFlavour) ,
     restocking(false) {
@@ -39,12 +39,12 @@ _Nomutex unsigned int VendingMachine::cost() {
 } // cost
 
 _Nomutex unsigned int VendingMachine::getId() {
-    return this->id;
+    return ID;
 } // getId
 
 void VendingMachine::main() {
     // registering with name server
-    this->nameServer->VMregister(this);
+    this->nameServer.VMregister(this);
 
     for (;;) {
         _Accept(~VendingMachine) {

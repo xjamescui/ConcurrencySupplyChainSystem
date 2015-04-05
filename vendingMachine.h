@@ -7,10 +7,10 @@
 #include "config.h"
 
 _Task VendingMachine {
-    Printer* printer;
-    NameServer* nameServer;
-    unsigned int id;
+    Printer& printer;
+    NameServer& nameServer;
     unsigned int stockLevel[NUM_FLAVOURS]; // the stock level of each flavour
+    const unsigned int ID;
     const unsigned int SODA_COST;
     const unsigned int MAX_STOCK_PER_FLAVOUR; 
     bool restocking;
