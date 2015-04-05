@@ -4,8 +4,14 @@
 #include "printer.h"
 #include "nameServer.h"
 #include "watcardOffice.h"
+#include "MPRNG.h"
 
 _Task Student {
+    const unsigned int STUDENT_ID;
+    const unsigned int MAX_PURCHASES;
+    NameServer& nameServer;
+    WATCardOffice& cardOffice;
+    Printer& printer;
     void main();
   public:
     Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffice, unsigned int id,

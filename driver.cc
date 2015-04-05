@@ -35,8 +35,5 @@ void uMain::main() {
 
     // TODO
     cout << "Hi the program is running" << endl;
-    cout << "sodaCost: " << params.sodaCost << endl;
-    cout << "numStudents: " << params.numStudents << endl;
-    cout << "maxPurchases: " << params.maxPurchases << endl;
 
 } // uMain::main
