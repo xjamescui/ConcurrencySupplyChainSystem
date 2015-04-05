@@ -22,6 +22,10 @@ WATCARD_OBJECTS = watcard.o testWatcard.o
 WATCARD_DEPENDS = ${WATCARD_OBJECTS:.o=.d}
 WATCARD_EXEC = watcard 
 
+WATCARD_OFFICE_OBJECTS = watcardOffice.o testWatcardOffice.o
+WATCARD_OFFICE_DEPENDS = ${WATCARD_OFFICE_OBJECTS:.o=.d}
+WATCARD_OFFICE_EXEC = watcardOffice 
+
 all : ${EXEC}		# build all executables
 
 ${BANK_EXEC} : ${BANK_OBJECTS}
@@ -34,6 +38,9 @@ ${PARENT_EXEC} : ${PARENT_OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 ${WATCARD_EXEC} : ${WATCARD_OBJECTS}
+	${CXX} ${CXXFLAGS} $^ -o $@
+
+${WATCARD_OFFICE_EXEC} : ${WATCARD_OFFICE_OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 ${EXEC} : ${OBJECTS}
