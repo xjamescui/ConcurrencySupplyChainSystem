@@ -2,8 +2,8 @@
 #define __NAMESERVER_H__
 
 #include "printer.h"
-#include "vendingMachine.h"
 
+_Task VendingMachine;
 _Task NameServer {
     Printer& printer;
     const unsigned int NUM_VENDING_MACHINES;
@@ -11,6 +11,7 @@ _Task NameServer {
 
     VendingMachine** machines;
     int* assigned; // A VM assigned to each student
+    unsigned int registrationCount;
 
     void main();
   public:

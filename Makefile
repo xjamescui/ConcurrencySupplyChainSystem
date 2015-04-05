@@ -2,11 +2,11 @@ CXX = u++					# compile
 CXXFLAGS = -g -Wall -Wno-unused-label -MMD -O2
 MAKEFLAGS = --no-print-directory
 
-OBJECTS = config.o printer.o bank.o parent.o watcard.o watcardOffice.o student.o vendingMachine.o nameServer.o bottlingPlant.o truck.o driver.o # fill in objects
+OBJECTS = config.o printer.o bank.o parent.o watcard.o watcardOffice.o student.o nameServer.o vendingMachine.o bottlingPlant.o truck.o driver.o # fill in objects
 DEPENDS = ${OBJECTS:.o=.d}			# substitute ".o" with ".d"
 EXEC = soda
 
-NS_OBJECTS = printer.o vendingMachine.o nameServer.o testNameServer.o
+NS_OBJECTS = printer.o watcard.o nameServer.o vendingMachine.o testNameServer.o
 NS_DEPENDS = ${NS_OBJECTS:.o=.d}
 NS_EXEC = nameServer
 
