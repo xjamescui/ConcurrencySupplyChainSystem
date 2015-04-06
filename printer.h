@@ -26,6 +26,10 @@ _Monitor Printer {
     //      But the array element corresponding to student is an array of size
     //      NUM_STUDENTS.
     StateInfo * stateInfos[NUM_KINDS];   
+
+    // Number of objects of each kind.
+    unsigned int numObjects[NUM_KINDS];
+
     bool isBufferEmpty;
 
     void printHeadings();

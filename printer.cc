@@ -46,16 +46,21 @@ Printer::Printer( unsigned int numStudents, unsigned int numVendingMachines, uns
         // There is only one of each of parent, watcard office, name server, truck, 
         // and bottling plant.	
 	stateInfos[kind] = new StateInfo[1];
+	numObjects[kind] = 1;
     }
 
     stateInfos[Student] = new StateInfo[NUM_STUDENTS];
     stateInfos[Vending] = new StateInfo[NUM_VENDING_MACHINES];
     stateInfos[Courier] = new StateInfo[NUM_COURIERS];
+
+    numObjects[Student] = NUM_STUDENTS;
+    numObjects[Vending] = NUM_VENDING_MACHINES;
+    numObjects[Courier] = NUM_COURIERS;
 }
 
 Printer::~Printer() {
-    for ( unsigned int i = 0; i < NUM_KINDS; ++i ) {
-	delete [] stateInfos[i];
+    for ( unsigned int kind = 0; kind < NUM_KINDS; ++kind ) {
+	delete [] stateInfos[kind];
     }
 }
 
@@ -65,34 +70,17 @@ void Printer::flush() {
 	return;
     }
 
-    for ( int kind = Parent; kind <= BottlingPlant; ++kind ) {
-	// Print columns corresponding to kinds that have only 1 object per kind.
-	stateInfos[kind][0].flushState();
-        cout << "\t";
-    }
+    for ( unsigned int kind = 0; kind < NUM_KINDS; ++kind ) {
+	for ( unsigned int lid = 0; lid < numObjects[kind]; ++lid ) {
+	    stateInfos[kind][lid].flushState();
+	    
+	    if ( kind == NUM_KINDS - 1 && lid == numObjects[kind] - 1 ) {
+		// Last column.  Don't print the tab.
+		break;
+	    }
 
-    // Print student columns.
-    for ( unsigned int lid = 0; lid < NUM_STUDENTS; ++lid ) {
-        stateInfos[Student][lid].flushState();	
-	cout << "\t";
-    }
-
-    // Print vending machine columns.
-    for ( unsigned int lid = 0; lid < NUM_VENDING_MACHINES; ++lid ) {
-        stateInfos[Vending][lid].flushState();	
-	cout << "\t";
-    }
-
-    // Print couriers.
-    for ( unsigned int lid = 0; ; ++lid ) {
-        stateInfos[Courier][lid].flushState();
-
-	if ( lid == NUM_COURIERS - 1 ) {
-	    // Last courier.  Don't print the tab.
-	    break;
+            cout << "\t";
 	}
-
-       	cout << "\t";	
     }
 
     cout << endl; 
@@ -101,53 +89,20 @@ void Printer::flush() {
 }
 
 void Printer::printFinish( Kind kind, unsigned int lid ) {
-    for ( int k = Parent; k <= BottlingPlant; ++k ) {
-	// Print columns corresponding to kinds that have only 1 object per kind.
-	if ( kind == k ) {
-	    cout << "F";
-	} else {
-	    cout << "...";
+    for ( unsigned int k = 0; k < NUM_KINDS; ++k ) {
+	for ( unsigned int id = 0; id < numObjects[k]; ++id ) {
+	    if ( kind == k && lid == id ) {
+		cout << "F";
+	    } else {
+		cout << "...";
+	    }
+
+	    if ( k == NUM_KINDS - 1 && id == numObjects[k] - 1 ) {
+		break;
+	    }
+
+	    cout << "\t";
 	}
-
-        cout << "\t";
-    }
-
-    // Print student columns.
-    for ( unsigned int id = 0; id < NUM_STUDENTS; ++id ) {
-	if ( kind == Student && lid == id ) {
-	    cout << "F";
-	} else {
-	    cout << "...";
-	}
-
-	cout << "\t";
-    }
-
-    // Print vending machine columns.
-    for ( unsigned int id = 0; id < NUM_VENDING_MACHINES; ++id ) {
-	if ( kind == Vending && lid == id ) {
-	    cout << "F";
-	} else {
-	    cout << "...";
-	}
-
-	cout << "\t";
-    }
-
-    // Print couriers.
-    for ( unsigned int id = 0; ; ++id ) {
-	if ( kind == Courier && lid == id ) {
-	    cout << "F";
-	} else {
-	    cout << "...";
-	}
-
-	if ( id == NUM_COURIERS - 1 ) {
-	    // Last courier.  Don't print the tab.
-	    break;
-	}
-
-       	cout << "\t";	
     }
 
     cout << endl; 
