@@ -48,16 +48,8 @@ void Truck::main() {
         // Cyclically restock each vending machine
         for (unsigned int i= startingVendingMachine ;; i = (i+1) % NUM_VENDING_MACHINES) {
 
-            if (this->truckEmpty()) {
-                // start with this vending machine next time shipment comes
-                startingVendingMachine = i;
-                break;
-            }
-
-            if (numVendingMachinesRestocked == NUM_VENDING_MACHINES) {
-                // cycle completes
-                break;
-            }
+            if (this->truckEmpty()) startingVendingMachine = i; // start with this vending machine next time shipment comes
+            if (this->truckEmpty() || numVendingMachinesRestocked == NUM_VENDING_MACHINES) break; // empty truck or cycle completes
 
             // get stock levels of each flavour for this vending machine
             unsigned int *inventory = machines[i]->inventory();
