@@ -108,7 +108,7 @@ void Printer::printFinish( Kind kind, unsigned int lid ) {
     cout << endl; 
 }
 
-void Printer::print( Kind kind, unsigned int lid, char state, vector<int> values ) {
+void Printer::printHelper( Kind kind, unsigned int lid, char state, vector<int> values ) {
     if ( state == 'F' || ! stateInfos[kind][lid].isEmpty ) {
 	// Either an object finished or about to overwrite a column.  
 	// Flush buffer.
@@ -124,34 +124,37 @@ void Printer::print( Kind kind, unsigned int lid, char state, vector<int> values
 }
 
 void Printer::print( Kind kind, char state ) {
-    print( kind, 0, state );
+    print( kind, 0, state ); // lid = 0 
 }
 
 void Printer::print( Kind kind, char state, int value1 ) {
-    print( kind, 0, state, value1 );
+    print( kind, 0, state, value1 ); // lid = 0
 }
 
 void Printer::print( Kind kind, char state, int value1, int value2 ) {
-    print( kind, 0, state, value1, value2 );
+    print( kind, 0, state, value1, value2 ); // lid = 0
 }
 
+/**
+ * lid = local id
+ */
 void Printer::print( Kind kind, unsigned int lid, char state ) { 
     // Empty vector of values.
     vector<int> values;
-    print( kind, lid, state, values );
+    printHelper( kind, lid, state, values );
 }
 
 void Printer::print( Kind kind, unsigned int lid, char state, int value1 ) {
     // Vector with a single element: value1.
     vector<int> values( 1, value1 );
-    print( kind, lid, state, values );
+    printHelper( kind, lid, state, values );
 }
 
 void Printer::print( Kind kind, unsigned int lid, char state, int value1, int value2 ) {
     // Vector with elements value1 and value2.
     vector<int> values( 1, value1 );
     values.push_back( value2 );
-    print( kind, lid, state, values );
+    printHelper( kind, lid, state, values );
 }
 
 void Printer::StateInfo::setState( char state, vector<int> values ) {

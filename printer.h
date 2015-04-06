@@ -46,7 +46,7 @@ _Monitor Printer {
     void print( Kind kind, unsigned int lid, char state, int value1, int value2 );
   private:
     void printFinish( Kind kind, unsigned int lid );
-    _Mutex void print( Kind kind, unsigned int lid, char state, vector<int> values );
+    void printHelper( Kind kind, unsigned int lid, char state, vector<int> values );
 
 };
 
