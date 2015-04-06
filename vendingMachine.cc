@@ -1,4 +1,7 @@
+#include <iostream>
 #include "vendingMachine.h"
+
+using namespace std;
 
 VendingMachine::VendingMachine( Printer &prt, NameServer &nameServer, unsigned int id, unsigned int sodaCost, unsigned int maxStockPerFlavour ) :
     printer(prt),

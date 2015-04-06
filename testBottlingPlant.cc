@@ -29,8 +29,8 @@ void uMain::main() {
         machines[i] = new VendingMachine(printer, ns, i, sodaCost, maxStockPerFlavour);
     }
 
-    cout << "HERE" << endl;
-    BottlingPlant plant(printer, ns, numVendingMachines, maxShippedPerFlavour, maxStockPerFlavour, timeBetweenShipments);
+    BottlingPlant* plant = new BottlingPlant(printer, ns, numVendingMachines, maxShippedPerFlavour, maxStockPerFlavour, timeBetweenShipments);
+    delete plant;
 
     for (unsigned int i = 0; i < numVendingMachines; i += 1) {
         delete machines[i];

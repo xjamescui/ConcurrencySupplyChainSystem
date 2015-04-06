@@ -19,7 +19,8 @@ bool Truck::truckEmpty() {
     }// for
 
     return true;
-}
+} // truckEmpty
+
 void Truck::main() {
 
     // get location of each vending machine from the name server
