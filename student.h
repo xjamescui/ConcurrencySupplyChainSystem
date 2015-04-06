@@ -7,11 +7,12 @@
 #include "MPRNG.h"
 
 _Task Student {
-    const unsigned int STUDENT_ID;
-    const unsigned int MAX_PURCHASES;
+    Printer& printer;
     NameServer& nameServer;
     WATCardOffice& cardOffice;
-    Printer& printer;
+    const unsigned int STUDENT_ID;
+    const unsigned int MAX_PURCHASES;
+
     void main();
   public:
     Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffice, unsigned int id,

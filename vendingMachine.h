@@ -3,9 +3,17 @@
 
 #include "printer.h"
 #include "watcard.h"
+#include "nameServer.h"
+#include "config.h"
 
-_Task NameServer;
 _Task VendingMachine {
+    Printer& printer;
+    NameServer& nameServer;
+    unsigned int stockLevel[NUM_FLAVOURS]; // the stock level of each flavour
+    const unsigned int ID;
+    const unsigned int SODA_COST;
+    const unsigned int MAX_STOCK_PER_FLAVOUR; 
+    bool restocking;
     void main();
   public:
     enum Flavours { BluesBlackCherry=0, ClassicCream=1, RockRootBeer=2, JazzLime=3 };     // flavours of soda (YOU DEFINE)
