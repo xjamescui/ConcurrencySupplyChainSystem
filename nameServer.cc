@@ -25,6 +25,7 @@ NameServer::~NameServer() {
 void NameServer::VMregister( VendingMachine *vendingmachine ) {
     this->machines[vendingmachine->getId()] = vendingmachine;
     this->registrationCount += 1;
+    printer.print(Printer::NameServer, 'R', vendingmachine->getId());
 } // VMregister
 
 
@@ -32,6 +33,7 @@ VendingMachine* NameServer::getMachine( unsigned int id ) {
     VendingMachine *machine = this->machines[this->assigned[id]];
     // increment assignment
     this->assigned[id] = (this->assigned[id] + 1) % NUM_VENDING_MACHINES;
+    printer.print(Printer::NameServer, 'N', id, machine->getId());
     return machine;
 } // getMachine
 
@@ -42,7 +44,7 @@ VendingMachine** NameServer::getMachineList() {
 
 
 void NameServer::main() {
-
+    printer.print(Printer::NameServer, 'S');
     for (;;) {
         _Accept(~NameServer) {
             break;
@@ -51,4 +53,5 @@ void NameServer::main() {
         } or _When(this->registrationCount > 0) _Accept( getMachine ) {}
     } // for
 
+    printer.print(Printer::NameServer, 'F');
 } // main
