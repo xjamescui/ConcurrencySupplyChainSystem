@@ -2,9 +2,13 @@ CXX = u++					# compile
 CXXFLAGS = -g -Wall -Wno-unused-label -MMD -O2
 MAKEFLAGS = --no-print-directory
 
-OBJECTS = config.o printer.o bank.o parent.o watcard.o watcardOffice.o student.o vendingMachine.o nameServer.o bottlingPlant.o truck.o driver.o # fill in objects
+OBJECTS = config.o printer.o bank.o parent.o watcard.o watcardOffice.o student.o nameServer.o vendingMachine.o bottlingPlant.o truck.o driver.o # fill in objects
 DEPENDS = ${OBJECTS:.o=.d}			# substitute ".o" with ".d"
 EXEC = soda
+
+NS_OBJECTS = printer.o watcard.o nameServer.o vendingMachine.o testNameServer.o
+NS_DEPENDS = ${NS_OBJECTS:.o=.d}
+NS_EXEC = nameServer
 
 BANK_OBJECTS = bank.o testBank.o
 BANK_DEPENDS = ${BANK_OBJECTS:.o=.d}
@@ -27,6 +31,9 @@ WATCARD_OFFICE_DEPENDS = ${WATCARD_OFFICE_OBJECTS:.o=.d}
 WATCARD_OFFICE_EXEC = watcardOffice 
 
 all : ${EXEC}		# build all executables
+
+${NS_EXEC} : ${NS_OBJECTS}
+	${CXX} ${CXXFLAGS} $^ -o $@
 
 ${BANK_EXEC} : ${BANK_OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
