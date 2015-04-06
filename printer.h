@@ -2,7 +2,6 @@
 #define __PRINTER_H__
 
 #include <vector>
-#include <string>
 
 using namespace std;
 
@@ -17,29 +16,8 @@ _Monitor Printer {
 	char state;
 	vector<int> values;
 	StateInfo()  : isEmpty( true ) {}
-	void setState( char state, vector<int> values ) {
-	    this->isEmpty = false;
-	    this->state = state;
-	    this->values = values;
-	} 
-
-	void flushState() {
-	    if ( isEmpty ) {
-		return;
-	    }
-
-	    cout << state;
-
-	    for ( vector<int>::iterator it = values.begin() ; it != values.end(); ++it ) {
-		if ( it != values.begin() ) {
-		    cout << ",";
-		}
-
-		cout << *it;
-	    }
-
-	    isEmpty = true;
-	}
+	void setState( char state, vector<int> values ); 
+	void flushState();
     };
 
     // Each array element here is an array corresponding to a specific kind.  
@@ -52,8 +30,6 @@ _Monitor Printer {
 
     void printHeadings();
     void flush();
-    void printFinish( Kind kind, unsigned int lid );
-    void print( Kind kind, unsigned int lid, char state, vector<int> values );
   public:
     enum Kind { Parent, WATCardOffice, NameServer, Truck, BottlingPlant, Student, Vending, Courier };
     Printer( unsigned int numStudents, unsigned int numVendingMachines, unsigned int numCouriers );
@@ -64,6 +40,10 @@ _Monitor Printer {
     void print( Kind kind, unsigned int lid, char state );
     void print( Kind kind, unsigned int lid, char state, int value1 );
     void print( Kind kind, unsigned int lid, char state, int value1, int value2 );
+  private:
+    void printFinish( Kind kind, unsigned int lid );
+    _Mutex void print( Kind kind, unsigned int lid, char state, vector<int> values );
+
 };
 
 #endif // __PRINTER_H__

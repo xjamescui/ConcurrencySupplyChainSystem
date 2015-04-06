@@ -35,12 +35,9 @@ void Printer::printHeadings() {
     cout << endl;
 }
 
-Printer::Printer( 
-	unsigned int numStudents, 
-	unsigned int numVendingMachines, 
-	unsigned int numCouriers ) :
+Printer::Printer( unsigned int numStudents, unsigned int numVendingMachines, unsigned int numCouriers ) :
         NUM_STUDENTS( numStudents ),
-        NUM_VENDING_MACHINES( numVendingMachines )
+        NUM_VENDING_MACHINES( numVendingMachines ),
         NUM_COURIERS( numCouriers ),
         isBufferEmpty( true ) {
     printHeadings();
@@ -57,7 +54,7 @@ Printer::Printer(
 }
 
 Printer::~Printer() {
-    for ( int i = 0; i < NUM_KINDS; ++i ) {
+    for ( unsigned int i = 0; i < NUM_KINDS; ++i ) {
 	delete [] stateInfos[i];
     }
 }
@@ -75,19 +72,19 @@ void Printer::flush() {
     }
 
     // Print student columns.
-    for ( int lid = 0; lid < NUM_STUDENTS; ++lid ) {
+    for ( unsigned int lid = 0; lid < NUM_STUDENTS; ++lid ) {
         stateInfos[Student][lid].flushState();	
 	cout << "\t";
     }
 
     // Print vending machine columns.
-    for ( int lid = 0; lid < NUM_VENDING_MACHINES; ++lid ) {
+    for ( unsigned int lid = 0; lid < NUM_VENDING_MACHINES; ++lid ) {
         stateInfos[Vending][lid].flushState();	
 	cout << "\t";
     }
 
     // Print couriers.
-    for ( int lid = 0; ; ++lid ) {
+    for ( unsigned int lid = 0; ; ++lid ) {
         stateInfos[Courier][lid].flushState();
 
 	if ( lid == NUM_COURIERS - 1 ) {
@@ -116,7 +113,7 @@ void Printer::printFinish( Kind kind, unsigned int lid ) {
     }
 
     // Print student columns.
-    for ( int id = 0; id < NUM_STUDENTS; ++id ) {
+    for ( unsigned int id = 0; id < NUM_STUDENTS; ++id ) {
 	if ( kind == Student && lid == id ) {
 	    cout << "F";
 	} else {
@@ -127,7 +124,7 @@ void Printer::printFinish( Kind kind, unsigned int lid ) {
     }
 
     // Print vending machine columns.
-    for ( int id = 0; id < NUM_VENDING_MACHINES; ++id ) {
+    for ( unsigned int id = 0; id < NUM_VENDING_MACHINES; ++id ) {
 	if ( kind == Vending && lid == id ) {
 	    cout << "F";
 	} else {
@@ -138,7 +135,7 @@ void Printer::printFinish( Kind kind, unsigned int lid ) {
     }
 
     // Print couriers.
-    for ( int id = 0; ; ++id ) {
+    for ( unsigned int id = 0; ; ++id ) {
 	if ( kind == Courier && lid == id ) {
 	    cout << "F";
 	} else {
@@ -201,3 +198,28 @@ void Printer::print( Kind kind, unsigned int lid, char state, int value1, int va
     values.push_back( value2 );
     print( kind, lid, state, values );
 }
+
+void Printer::StateInfo::setState( char state, vector<int> values ) {
+    this->isEmpty = false;
+    this->state = state;
+    this->values = values;
+}
+
+void Printer::StateInfo::flushState() {
+    if ( isEmpty ) {
+	return;
+    }
+
+    cout << state;
+
+    for ( vector<int>::iterator it = values.begin() ; it != values.end(); ++it ) {
+	if ( it != values.begin() ) {
+	    cout << ",";
+	}
+
+	cout << *it;
+    }
+
+    isEmpty = true;
+}
+

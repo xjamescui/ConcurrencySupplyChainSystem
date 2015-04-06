@@ -26,6 +26,10 @@ WATCARD_OFFICE_OBJECTS = printer.o bank.o watcard.o watcardOffice.o testWatcardO
 WATCARD_OFFICE_DEPENDS = ${WATCARD_OFFICE_OBJECTS:.o=.d}
 WATCARD_OFFICE_EXEC = watcardOffice 
 
+PRINTER_OBJECTS = printer.o testPrinter.o
+PRINTER_DEPENDS = ${PRINTER_OBJECTS:.o=.d}
+PRINTER_EXEC = printer 
+
 all : ${EXEC}		# build all executables
 
 ${BANK_EXEC} : ${BANK_OBJECTS}
@@ -41,6 +45,9 @@ ${WATCARD_EXEC} : ${WATCARD_OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 ${WATCARD_OFFICE_EXEC} : ${WATCARD_OFFICE_OBJECTS}
+	${CXX} ${CXXFLAGS} $^ -o $@
+
+${PRINTER_EXEC} : ${PRINTER_OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 ${EXEC} : ${OBJECTS}
