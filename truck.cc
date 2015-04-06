@@ -1,4 +1,3 @@
-#include <iostream>
 #include <algorithm>
 #include "truck.h"
 #include "bottlingPlant.h"
@@ -16,13 +15,20 @@ Truck::Truck( Printer &prt, NameServer &nameServer, BottlingPlant &plant, unsign
 bool Truck::truckEmpty() {
     for (unsigned int i = 0; i < NUM_FLAVOURS; i += 1) {
         if (this->cargo[i] > 0) return false;
-    }// for
+    } // for
 
     return true;
 } // truckEmpty
 
+unsigned int Truck::countCargo() {
+    unsigned int total = 0;
+    for (unsigned int i = 0; i < NUM_FLAVOURS; i += 1 ) {
+        total += this->cargo[i];
+    } // for
+    return total;
+}
 void Truck::main() {
-
+    printer.print(Printer::Truck, 'S');
     // get location of each vending machine from the name server
     VendingMachine** machines = this->nameServer.getMachineList();
     unsigned int numVendingMachinesRestocked;
@@ -40,8 +46,9 @@ void Truck::main() {
         // get new shipment from bottlingPlant
         try {
             this->bottlingPlant.getShipment(this->cargo);
+            printer.print(Printer::Truck, 'P', countCargo());
         } catch (BottlingPlant::Shutdown& shutdown) {
-            return;
+            break;
         }
 
         numVendingMachinesRestocked = 0;
@@ -53,23 +60,31 @@ void Truck::main() {
             if (this->truckEmpty() || numVendingMachinesRestocked == NUM_VENDING_MACHINES) break; // empty truck or cycle completes
 
             // get stock levels of each flavour for this vending machine
+            printer.print(Printer::Truck, 'd', i, countCargo());
             unsigned int *inventory = machines[i]->inventory();
 
             // restock each flavour
+            unsigned int totalUnfilledAmount = 0;
             for (unsigned int f=0; f < NUM_FLAVOURS; f += 1) {
                 int restockAmount= MAX_STOCK_PER_FLAVOUR - inventory[f];
 
                 if (restockAmount > 0) {
                     restockAmount = min((unsigned int)restockAmount, this->cargo[f]);
                     inventory[f] += restockAmount;
+                    totalUnfilledAmount += MAX_STOCK_PER_FLAVOUR - inventory[f];
                     this->cargo[f] -= restockAmount;
                 } // if
             } // for
 
+            if (totalUnfilledAmount > 0) printer.print(Printer::Truck, 'U', i, totalUnfilledAmount);
+
             // restocking is done for this vending machine
             machines[i]->restocked();
             numVendingMachinesRestocked += 1;
+            printer.print(Printer::Truck, 'D', i, countCargo());
         } // for
     }
+
+    printer.print(Printer::Truck, 'F');
 } // main
 

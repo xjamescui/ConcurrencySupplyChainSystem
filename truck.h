@@ -16,6 +16,7 @@ _Task Truck {
     unsigned int cargo[NUM_FLAVOURS];
 
     bool truckEmpty();
+    unsigned int countCargo();
     void main();
   public:
     Truck( Printer &prt, NameServer &nameServer, BottlingPlant &plant,
