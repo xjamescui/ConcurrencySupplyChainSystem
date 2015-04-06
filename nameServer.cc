@@ -17,10 +17,6 @@ NameServer::NameServer( Printer &prt, unsigned int numVendingMachines, unsigned 
 
 
 NameServer::~NameServer() {
-    for (unsigned int i = 0; i < NUM_VENDING_MACHINES; i += 1) {
-        this->machines[i] = NULL;
-    } // for
-
     delete [] this->machines;
     delete [] this->assigned;
 } // destructor
