@@ -29,15 +29,18 @@ void VendingMachine::buy( Flavours flavour, WATCard &card ) {
 
     this->stockLevel[flavour] -= 1;
     card.withdraw(SODA_COST);
+    printer.print(Printer::Vending, ID, 'B', flavour, this->stockLevel[flavour]); 
 } // buy
 
 unsigned int* VendingMachine::inventory() {
+    printer.print(Printer::Vending, ID, 'r');
     this->restocking = true;
     return this->stockLevel;
 } // inventory
 
 void VendingMachine::restocked() {
     this->restocking = false;
+    printer.print(Printer::Vending, ID, 'R');
 } // restocked
 
 _Nomutex unsigned int VendingMachine::cost() {
@@ -49,6 +52,7 @@ _Nomutex unsigned int VendingMachine::getId() {
 } // getId
 
 void VendingMachine::main() {
+    printer.print(Printer::Vending, ID, 'S', SODA_COST); 
     // registering with name server
     this->nameServer.VMregister(this);
 
@@ -61,4 +65,5 @@ void VendingMachine::main() {
         }
     } // for
 
+    printer.print(Printer::Vending, ID, 'F');
 }// main
