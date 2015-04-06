@@ -14,7 +14,7 @@ VM_OBJECTS = printer.o watcard.o nameServer.o vendingMachine.o testVendingMachin
 VM_DEPENDS = ${VM_OBJECTS:.o=.d}
 VM_EXEC = vendingMachine
 
-STUDENT_OBJECTS = printer.o nameServer.o watcardOffice.o vendingMachine.o student.o testStudent.o
+STUDENT_OBJECTS = printer.o bank.o watcard.o nameServer.o watcardOffice.o vendingMachine.o student.o testStudent.o
 STUDENT_DEPENDS = ${STUDENT_OBJECTS:.o=.d}
 STUDENT_EXEC = student
 
