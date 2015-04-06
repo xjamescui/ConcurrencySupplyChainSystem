@@ -19,7 +19,10 @@ void VendingMachine::buy( Flavours flavour, WATCard &card ) {
         uRendezvousAcceptor();
         throw Stock();
     }
-    if (card.getBalance() < SODA_COST) throw Funds();
+    if (card.getBalance() < SODA_COST) {
+        uRendezvousAcceptor();
+        throw Funds();
+    }
 
     this->stockLevel[flavour] -= 1;
     card.withdraw(SODA_COST);

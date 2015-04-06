@@ -14,7 +14,7 @@ BANK_OBJECTS = bank.o testBank.o
 BANK_DEPENDS = ${BANK_OBJECTS:.o=.d}
 BANK_EXEC = bank
 
-VM_OBJECTS = printer.o watcard.o nameServer.o vendingMachine.o testVendingMachine.o
+VM_OBJECTS = printer.o watcard.o nameServer.o vendingMachine.o bottlingPlant.o truck.o testVendingMachine.o
 VM_DEPENDS = ${VM_OBJECTS:.o=.d}
 VM_EXEC = vendingMachine
 

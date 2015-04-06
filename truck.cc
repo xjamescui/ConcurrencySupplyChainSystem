@@ -1,3 +1,4 @@
+#include <iostream>
 #include <algorithm>
 #include "truck.h"
 #include "bottlingPlant.h"
@@ -8,7 +9,7 @@ using namespace std;
 Truck::Truck( Printer &prt, NameServer &nameServer, BottlingPlant &plant, unsigned int numVendingMachines, unsigned int maxStockPerFlavour ) :
     printer(prt),
     nameServer(nameServer),
-    bottlingPlant(bottlingPlant),
+    bottlingPlant(plant),
     NUM_VENDING_MACHINES(numVendingMachines),
     MAX_STOCK_PER_FLAVOUR(maxStockPerFlavour) {} // constructor
 
@@ -45,7 +46,7 @@ void Truck::main() {
         numVendingMachinesRestocked = 0;
 
         // Cyclically restock each vending machine
-        for (unsigned int i= startingVendingMachine; i < NUM_VENDING_MACHINES; i = (i+1) % NUM_VENDING_MACHINES) {
+        for (unsigned int i= startingVendingMachine ;; i = (i+1) % NUM_VENDING_MACHINES) {
 
             if (this->truckEmpty()) {
                 // start with this vending machine next time shipment comes

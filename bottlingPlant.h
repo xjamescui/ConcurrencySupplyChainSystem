@@ -6,8 +6,8 @@
 #include "config.h"
 
 _Task BottlingPlant {
-    Printer* printer;
-    NameServer* nameServer;
+    Printer& printer;
+    NameServer& nameServer;
 
     const unsigned int NUM_VENDING_MACHINES;
     const unsigned int MAX_SHIPPED_PER_FLAVOUR;
@@ -16,8 +16,9 @@ _Task BottlingPlant {
 
     bool shutdown;
 
+    unsigned int totalProduced;
     unsigned int produced[NUM_FLAVOURS];
-    void produce();
+    void productionRun();
     void main();
   public:
     _Event Shutdown {};                    // shutdown plant
