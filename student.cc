@@ -15,11 +15,14 @@ void Student::main() {
     const unsigned int PURCHASE_QUANTITY = g_randGenerator(1, MAX_PURCHASES);
     const unsigned int FLAVOUR = g_randGenerator(NUM_FLAVOURS - 1);
 
+    printer.print(Printer::Student, STUDENT_ID, 'S', FLAVOUR, PURCHASE_QUANTITY );
+
     // creates watcard from watcard office with $5 in balance
     WATCard::FWATCard fwatCard = this->cardOffice.create(STUDENT_ID, INITIAL_BALANCE);
 
     // get vending machine location from nameserver
     VendingMachine* vendingMachine = this->nameServer.getMachine(STUDENT_ID);
+    printer.print(Printer::Student, STUDENT_ID, 'V', vendingMachine->getId());
 
     // buy the sodas
     for (unsigned int i = 0; i < PURCHASE_QUANTITY; i++) {
@@ -28,6 +31,7 @@ void Student::main() {
             try{
                 try {
                     vendingMachine->buy((VendingMachine::Flavours)FLAVOUR, *(fwatCard()));
+                    printer.print(Printer::Student, STUDENT_ID, 'B', fwatCard()->getBalance());
                     break;
                 } catch (VendingMachine::Funds& f) {
                     // need to transfer money
@@ -36,10 +40,12 @@ void Student::main() {
                 } catch (VendingMachine::Stock& s) {
                     // out of stock, get a new vending machine
                     vendingMachine = this->nameServer.getMachine(STUDENT_ID);
+                    printer.print(Printer::Student, STUDENT_ID, 'V', vendingMachine->getId());
                     continue;
                 }
             } catch (WATCardOffice::Lost& l) {
                 // retry: creates watcard from watcard office with $5 in balance
+                printer.print(Printer::Student, STUDENT_ID, 'L');
                 fwatCard.reset();
                 fwatCard = this->cardOffice.create(STUDENT_ID, INITIAL_BALANCE);
             }
@@ -48,5 +54,6 @@ void Student::main() {
 
     delete fwatCard;
 
+    printer.print(Printer::Student, STUDENT_ID, 'F');
 } // main
 
