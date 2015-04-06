@@ -6,7 +6,7 @@ WATCardOffice::WATCardOffice( Printer &prt, Bank &bank, unsigned int numCouriers
         bank( bank ),
         NUM_COURIERS( numCouriers ),
         shutdown( false ) {
-}
+} // constructor
 
 WATCardOffice::~WATCardOffice() {
     while ( ! jobs.empty() ) {
@@ -14,12 +14,13 @@ WATCardOffice::~WATCardOffice() {
 	jobs.pop();
 	delete job;
     }
-}
+} // destructor
 
 WATCard::FWATCard WATCardOffice::create( unsigned int sid, unsigned int amount ) {
     Args args( sid, amount );
     Job * job = new Job( args );
     jobs.push( job );
+    prt.print(Printer::WATCardOffice, 'C', sid, amount);
     return job->result;
 }
 
@@ -27,20 +28,21 @@ WATCard::FWATCard WATCardOffice::transfer( unsigned int sid, unsigned int amount
     Args args( sid, amount, card );
     Job * job = new Job( args );
     jobs.push( job );
+    prt.print(Printer::WATCardOffice, 'T', sid, amount);
     return job->result;
 }
 
 WATCardOffice::Job* WATCardOffice::requestWork() {    
-    if ( shutdown ) {
-	return NULL;
-    }
+    if ( shutdown ) return NULL;
 
     Job * job = jobs.front();
     jobs.pop();
+    prt.print(Printer::WATCardOffice, 'W');
     return job;
 }
 
 void WATCardOffice::main() {
+    prt.print(Printer::WATCardOffice, 'S');
     Courier * couriers[ NUM_COURIERS ];
 
     for ( unsigned int i = 0; i < NUM_COURIERS; ++i ) {
@@ -51,8 +53,8 @@ void WATCardOffice::main() {
 	_Accept( ~WATCardOffice ) {
 	    break;
 	} or _When( ! jobs.empty() ) _Accept( requestWork ) {
-	} or _Accept( create, transfer ) {
-	}
+	} or _Accept( create, transfer) {
+	} // _Accept
     }
 
     shutdown = true;
@@ -64,6 +66,8 @@ void WATCardOffice::main() {
     for ( unsigned int i = 0; i < NUM_COURIERS; ++i ) {
 	delete couriers[i];
     }
+
+    prt.print(Printer::WATCardOffice, 'F');
 }
 
 WATCardOffice::Courier::Courier( WATCardOffice & watcardOffice ) : watcardOffice( watcardOffice ) {}
@@ -72,9 +76,7 @@ void WATCardOffice::Courier::main() {
     while ( true ) {
 	Job * job = watcardOffice.requestWork();
 
-	if ( ! job ) {
-	    break;
-	}
+	if ( ! job ) break;
 
 	const Args args = job->args;
 	WATCard * card = args.card;
@@ -82,7 +84,7 @@ void WATCardOffice::Courier::main() {
 	if ( ! card ) {
 	    // No card provided.  Create new card.
 	    card = new WATCard();
-	}
+	} // if
 
 	watcardOffice.bank.withdraw( args.sid, args.amount );
 
@@ -97,5 +99,6 @@ void WATCardOffice::Courier::main() {
 	}
 
 	delete job;
-    }
+    } // while
+
 }
