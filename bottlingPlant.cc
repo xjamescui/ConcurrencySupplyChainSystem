@@ -31,6 +31,8 @@ void BottlingPlant::getShipment( unsigned int cargo[] ) {
         cargo[i] = this->produced[i];
         this->produced[i] = 0;
     } // for
+
+    printer.print(Printer::BottlingPlant, 'P');
 } // getShipment
 
 
@@ -44,12 +46,13 @@ void BottlingPlant::productionRun() {
         this->produced[i] = g_randGenerator(MAX_SHIPPED_PER_FLAVOUR);
         this->totalProduced += this->produced[i];
     } // for
+    printer.print(Printer::BottlingPlant, 'G', this->totalProduced);
 } // produce
 
 
 
 void BottlingPlant::main() {
-
+    printer.print(Printer::BottlingPlant, 'S');
     // create a truck
     Truck* truck = new Truck(printer, nameServer, *this, NUM_VENDING_MACHINES, MAX_STOCK_PER_FLAVOUR);
 
@@ -71,4 +74,6 @@ void BottlingPlant::main() {
     _Accept(getShipment);
 
     delete truck;
+
+    printer.print(Printer::BottlingPlant, 'F');
 } // main
