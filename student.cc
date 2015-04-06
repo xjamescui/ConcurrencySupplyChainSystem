@@ -46,5 +46,7 @@ void Student::main() {
         } // while
     } // for
 
+    delete fwatCard;
+
 } // main
 

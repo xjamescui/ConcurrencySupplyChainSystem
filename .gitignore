@@ -1,4 +1,11 @@
 soda
+bank
+bottlingPlant
+truck
+student
+vendingMachine
+watcard
+parent
 *.orig
 *.o
 *.d
