@@ -26,7 +26,8 @@ unsigned int Truck::countCargo() {
         total += this->cargo[i];
     } // for
     return total;
-}
+} // countCargo
+
 void Truck::main() {
     printer.print(Printer::Truck, 'S');
     // get location of each vending machine from the name server

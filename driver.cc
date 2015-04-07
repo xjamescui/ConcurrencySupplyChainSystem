@@ -39,7 +39,7 @@ void uMain::main() {
         if (!convert(seed,argv[2]) || seed < 0) {
             cerr << "Seed must be a positive integer" << endl;
             exit( EXIT_FAILURE );
-        }
+        } // if
     case 2:
         filename = argv[1];
     case 1:
