@@ -64,7 +64,7 @@ void BottlingPlant::main() {
             this->shutdown = true;
             break;
         }
-        or _When( this->totalProduced > 0 ) _Accept(getShipment) {
+        or _Accept(getShipment) {
             this->productionRun();
         }
     } // for
