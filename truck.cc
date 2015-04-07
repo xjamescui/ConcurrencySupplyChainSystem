@@ -39,7 +39,7 @@ void Truck::main() {
         // yield
         yield(g_randGenerator(1,10));
 
-        // throw any previous leftover sodas on the truck
+        // throw any previous leftover sodas from the truck into the garbage
         for (unsigned int i= 0; i < NUM_FLAVOURS; i += 1) {
             this->cargo[i] = 0;
         } // for
@@ -50,7 +50,7 @@ void Truck::main() {
             printer.print(Printer::Truck, 'P', countCargo());
         } catch (BottlingPlant::Shutdown& shutdown) {
             break;
-        }
+        } // try/catch
 
         numVendingMachinesRestocked = 0;
 
@@ -84,7 +84,7 @@ void Truck::main() {
             numVendingMachinesRestocked += 1;
             printer.print(Printer::Truck, 'D', i, countCargo());
         } // for
-    }
+    } // for
 
     printer.print(Printer::Truck, 'F');
 } // main

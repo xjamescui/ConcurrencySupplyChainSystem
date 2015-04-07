@@ -1,4 +1,3 @@
-#include <iostream>
 #include "bottlingPlant.h"
 #include "truck.h"
 #include "MPRNG.h"
@@ -29,6 +28,7 @@ void BottlingPlant::getShipment( unsigned int cargo[] ) {
 
     for (unsigned int i = 0; i < NUM_FLAVOURS; i += 1) {
         cargo[i] = this->produced[i];
+	// Reset for next production run.
         this->produced[i] = 0;
     } // for
 
@@ -41,6 +41,7 @@ void BottlingPlant::getShipment( unsigned int cargo[] ) {
  */
 void BottlingPlant::productionRun() {
     yield(TIME_BETWEEN_SHIPMENTS);
+    // Reset for next production run.
     this->totalProduced = 0;
     for (unsigned int i = 0; i < NUM_FLAVOURS; i += 1) {
         this->produced[i] = g_randGenerator(MAX_SHIPPED_PER_FLAVOUR);
@@ -66,7 +67,7 @@ void BottlingPlant::main() {
         }
         or _Accept(getShipment) {
             this->productionRun();
-        }
+        } // _Accept
     } // for
 
     // need to wait for truck to come again so truck knows

@@ -28,10 +28,12 @@ void Student::main() {
     for (unsigned int i = 0; i < PURCHASE_QUANTITY; i++) {
         yield(g_randGenerator(1,10));
         while (true) {
+	    // if at first you don't succeed, try, try again.
             try {
                 try {
                     vendingMachine->buy((VendingMachine::Flavours)FLAVOUR, *(fwatCard()));
                     printer.print(Printer::Student, STUDENT_ID, 'B', fwatCard()->getBalance());
+		    // Success in buying soda
                     break;
                 } catch (VendingMachine::Funds& f) {
                     // need to transfer money
@@ -42,13 +44,13 @@ void Student::main() {
                     vendingMachine = this->nameServer.getMachine(STUDENT_ID);
                     printer.print(Printer::Student, STUDENT_ID, 'V', vendingMachine->getId());
                     continue;
-                }
+                } // try/catch
             } catch (WATCardOffice::Lost& l) {
                 // retry: creates watcard from watcard office with $5 in balance
                 printer.print(Printer::Student, STUDENT_ID, 'L');
                 fwatCard.reset();
                 fwatCard = this->cardOffice.create(STUDENT_ID, INITIAL_BALANCE);
-            }
+            } // try/catch
         } // while
     } // for
 

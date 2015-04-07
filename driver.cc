@@ -32,19 +32,19 @@ void usage( char *argv[] ) {
 
 void uMain::main() {
 
-    string filename = "soda.config";
-    int seed = getpid();
+    string filename = "soda.config";    // default value.
+    int seed = getpid();                // default value.
     switch (argc) {
-    case 3:
+      case 3:
         if (!convert(seed,argv[2]) || seed < 0) {
             cerr << "Seed must be a positive integer" << endl;
             exit( EXIT_FAILURE );
         } // if
-    case 2:
+      case 2:
         filename = argv[1];
-    case 1:
+      case 1:
         break;
-    default:
+      default:
         usage(argv);
     } // switch
 
@@ -63,7 +63,7 @@ void uMain::main() {
 
     for (unsigned int id = 0; id < params.numVendingMachines; ++id) {
         machines[id] = new VendingMachine(printer, ns, id, params.sodaCost, params.maxStockPerFlavour);
-    }
+    } // for
 
     {
         // this scope is used to ensure that bottling plant is deleted before the vending machines
