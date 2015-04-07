@@ -2,12 +2,12 @@
 #include "vendingMachine.h"
 #include "config.h"
 
-Student::Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffice, unsigned int id, unsigned int maxPurchases ) : 
-    printer(prt), 
+Student::Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffice, unsigned int id, unsigned int maxPurchases ) :
+    printer(prt),
     nameServer(nameServer),
-    cardOffice(cardOffice), 
+    cardOffice(cardOffice),
     STUDENT_ID(id),
-    MAX_PURCHASES(maxPurchases){} // constructor
+    MAX_PURCHASES(maxPurchases) {} // constructor
 
 void Student::main() {
 
@@ -28,7 +28,7 @@ void Student::main() {
     for (unsigned int i = 0; i < PURCHASE_QUANTITY; i++) {
         yield(g_randGenerator(1,10));
         while (true) {
-            try{
+            try {
                 try {
                     vendingMachine->buy((VendingMachine::Flavours)FLAVOUR, *(fwatCard()));
                     printer.print(Printer::Student, STUDENT_ID, 'B', fwatCard()->getBalance());

@@ -6,15 +6,15 @@ void Printer::printHeadings() {
     cout << "Parent\tWATOff\tNames\tTruck\tPlant";
 
     for ( unsigned int id = 0; id < NUM_STUDENTS; ++id ) {
-	cout << "\t" << "Stud" << id;
+        cout << "\t" << "Stud" << id;
     }
 
     for ( unsigned int id = 0; id < NUM_VENDING_MACHINES; ++id ) {
-	cout << "\t" << "Mach" << id;
+        cout << "\t" << "Mach" << id;
     }
 
     for ( unsigned int id = 0; id < NUM_COURIERS; ++id ) {
-	cout << "\t" << "Cour" << id ;
+        cout << "\t" << "Cour" << id ;
     }
 
     cout << endl;
@@ -22,31 +22,31 @@ void Printer::printHeadings() {
     const unsigned int numColumns = 5 + NUM_STUDENTS + NUM_VENDING_MACHINES + NUM_COURIERS;
 
     for ( unsigned int i = 0; ; ++i ) {
-	cout << "*******";
+        cout << "*******";
 
-	if ( i == numColumns - 1 ) {
-	    // Last column.  Don't print the trailing tab.
-	    break;
-	}
+        if ( i == numColumns - 1 ) {
+            // Last column.  Don't print the trailing tab.
+            break;
+        }
 
-	cout << "\t";
+        cout << "\t";
     }
 
     cout << endl;
 }
 
 Printer::Printer( unsigned int numStudents, unsigned int numVendingMachines, unsigned int numCouriers ) :
-        NUM_STUDENTS( numStudents ),
-        NUM_VENDING_MACHINES( numVendingMachines ),
-        NUM_COURIERS( numCouriers ),
-        isBufferEmpty( true ) {
+    NUM_STUDENTS( numStudents ),
+    NUM_VENDING_MACHINES( numVendingMachines ),
+    NUM_COURIERS( numCouriers ),
+    isBufferEmpty( true ) {
     printHeadings();
 
     for ( int kind = Parent; kind <= BottlingPlant; ++kind ) {
-        // There is only one of each of parent, watcard office, name server, truck, 
-        // and bottling plant.	
-	stateInfos[kind] = new StateInfo[1];
-	numObjects[kind] = 1;
+        // There is only one of each of parent, watcard office, name server, truck,
+        // and bottling plant.
+        stateInfos[kind] = new StateInfo[1];
+        numObjects[kind] = 1;
     }
 
     stateInfos[Student] = new StateInfo[NUM_STUDENTS];
@@ -60,71 +60,71 @@ Printer::Printer( unsigned int numStudents, unsigned int numVendingMachines, uns
 
 Printer::~Printer() {
     for ( unsigned int kind = 0; kind < NUM_KINDS; ++kind ) {
-	delete [] stateInfos[kind];
+        delete [] stateInfos[kind];
     }
 }
 
 void Printer::flush() {
     if ( isBufferEmpty ) {
-	// Don't print anything if the buffer is empty.
-	return;
+        // Don't print anything if the buffer is empty.
+        return;
     }
 
     for ( unsigned int kind = 0; kind < NUM_KINDS; ++kind ) {
-	for ( unsigned int lid = 0; lid < numObjects[kind]; ++lid ) {
-	    stateInfos[kind][lid].flushState();
-	    
-	    if ( kind == NUM_KINDS - 1 && lid == numObjects[kind] - 1 ) {
-		// Last column.  Don't print the tab.
-		break;
-	    }
+        for ( unsigned int lid = 0; lid < numObjects[kind]; ++lid ) {
+            stateInfos[kind][lid].flushState();
+
+            if ( kind == NUM_KINDS - 1 && lid == numObjects[kind] - 1 ) {
+                // Last column.  Don't print the tab.
+                break;
+            }
 
             cout << "\t";
-	}
+        }
     }
 
-    cout << endl; 
+    cout << endl;
 
     isBufferEmpty = true;
 }
 
 void Printer::printFinish( Kind kind, unsigned int lid ) {
     for ( unsigned int k = 0; k < NUM_KINDS; ++k ) {
-	for ( unsigned int id = 0; id < numObjects[k]; ++id ) {
-	    if ( kind == k && lid == id ) {
-		cout << "F";
-	    } else {
-		cout << "...";
-	    }
+        for ( unsigned int id = 0; id < numObjects[k]; ++id ) {
+            if ( kind == k && lid == id ) {
+                cout << "F";
+            } else {
+                cout << "...";
+            }
 
-	    if ( k == NUM_KINDS - 1 && id == numObjects[k] - 1 ) {
-		break;
-	    }
+            if ( k == NUM_KINDS - 1 && id == numObjects[k] - 1 ) {
+                break;
+            }
 
-	    cout << "\t";
-	}
+            cout << "\t";
+        }
     }
 
-    cout << endl; 
+    cout << endl;
 }
 
 void Printer::printHelper( Kind kind, unsigned int lid, char state, vector<int> values ) {
     if ( state == 'F' || ! stateInfos[kind][lid].isEmpty ) {
-	// Either an object finished or about to overwrite a column.  
-	// Flush buffer.
-	flush();
+        // Either an object finished or about to overwrite a column.
+        // Flush buffer.
+        flush();
     }
 
-    if ( state == 'F' ) {	
-	printFinish( kind, lid );
+    if ( state == 'F' ) {
+        printFinish( kind, lid );
     } else {
-	isBufferEmpty = false;
-	stateInfos[kind][lid].setState( state, values );
+        isBufferEmpty = false;
+        stateInfos[kind][lid].setState( state, values );
     }
 }
 
 void Printer::print( Kind kind, char state ) {
-    print( kind, 0, state ); // lid = 0 
+    print( kind, 0, state ); // lid = 0
 }
 
 void Printer::print( Kind kind, char state, int value1 ) {
@@ -138,7 +138,7 @@ void Printer::print( Kind kind, char state, int value1, int value2 ) {
 /**
  * lid = local id
  */
-void Printer::print( Kind kind, unsigned int lid, char state ) { 
+void Printer::print( Kind kind, unsigned int lid, char state ) {
     // Empty vector of values.
     vector<int> values;
     printHelper( kind, lid, state, values );
@@ -165,17 +165,17 @@ void Printer::StateInfo::setState( char state, vector<int> values ) {
 
 void Printer::StateInfo::flushState() {
     if ( isEmpty ) {
-	return;
+        return;
     }
 
     cout << state;
 
     for ( vector<int>::iterator it = values.begin() ; it != values.end(); ++it ) {
-	if ( it != values.begin() ) {
-	    cout << ",";
-	}
+        if ( it != values.begin() ) {
+            cout << ",";
+        }
 
-	cout << *it;
+        cout << *it;
     }
 
     isEmpty = true;

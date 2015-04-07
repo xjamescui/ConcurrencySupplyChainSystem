@@ -12,10 +12,10 @@ _Task VendingMachine {
     unsigned int stockLevel[NUM_FLAVOURS]; // the stock level of each flavour
     const unsigned int ID;
     const unsigned int SODA_COST;
-    const unsigned int MAX_STOCK_PER_FLAVOUR; 
+    const unsigned int MAX_STOCK_PER_FLAVOUR;
     bool restocking;
     void main();
-  public:
+public:
     enum Flavours { BluesBlackCherry=0, ClassicCream=1, RockRootBeer=2, JazzLime=3 };     // flavours of soda (YOU DEFINE)
     _Event Funds {};                       // insufficient funds
     _Event Stock {};                       // out of stock for particular flavour

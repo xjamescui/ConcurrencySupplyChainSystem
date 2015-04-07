@@ -16,10 +16,10 @@ BottlingPlant::BottlingPlant( Printer &prt, NameServer &nameServer, unsigned int
     TIME_BETWEEN_SHIPMENTS(timeBetweenShipments),
     shutdown(false),
     totalProduced(0) {
-        for (unsigned int i = 0; i < NUM_FLAVOURS; i += 1) {
-            this->produced[i] = 0;
-        } // for
-    } // constructor
+    for (unsigned int i = 0; i < NUM_FLAVOURS; i += 1) {
+        this->produced[i] = 0;
+    } // for
+} // constructor
 
 void BottlingPlant::getShipment( unsigned int cargo[] ) {
     if (this->shutdown) {

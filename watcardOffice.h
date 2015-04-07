@@ -14,15 +14,15 @@ _Task WATCardOffice {
     const unsigned int NUM_COURIERS;
     bool shutdown;                         // Whether or not the office is currently being shut down.
     struct Args {
-	unsigned int sid;
-	unsigned int amount;
-	WATCard * card;
-	Args( unsigned int sid, unsigned int amount ) : sid( sid ), amount( amount ), card( NULL ) {}
-	Args( unsigned int sid, unsigned int amount, WATCard * card ) : 
-	        sid( sid ), 
-		amount( amount ), 
-		card( card ) {
-	}
+        unsigned int sid;
+        unsigned int amount;
+        WATCard * card;
+        Args( unsigned int sid, unsigned int amount ) : sid( sid ), amount( amount ), card( NULL ) {}
+        Args( unsigned int sid, unsigned int amount, WATCard * card ) :
+            sid( sid ),
+            amount( amount ),
+            card( card ) {
+        }
     };
 
     struct Job {                           // marshalled arguments and return future
@@ -31,18 +31,18 @@ _Task WATCardOffice {
         Job( Args args ) : args( args ) {}
     };
 
-    queue<Job *> jobs; 
+    queue<Job *> jobs;
 
     _Task Courier {                        // communicates with bank
         Printer& prt;
-	WATCardOffice & watcardOffice;
-	void main();
-      public:
-	Courier( Printer& prt, WATCardOffice & watcardOffice );
-    };                 
+        WATCardOffice & watcardOffice;
+        void main();
+public:
+        Courier( Printer& prt, WATCardOffice & watcardOffice );
+    };
 
     void main();
-  public:
+public:
     _Event Lost {};                        // lost WATCard
     WATCardOffice( Printer &prt, Bank &bank, unsigned int numCouriers );
     ~WATCardOffice();

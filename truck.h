@@ -18,9 +18,9 @@ _Task Truck {
     bool truckEmpty();
     unsigned int countCargo();
     void main();
-  public:
+public:
     Truck( Printer &prt, NameServer &nameServer, BottlingPlant &plant,
-           unsigned int numVendingMachines, unsigned int maxStockPerFlavour );
+    unsigned int numVendingMachines, unsigned int maxStockPerFlavour );
 };
 
 #endif // __TRUCK_H__

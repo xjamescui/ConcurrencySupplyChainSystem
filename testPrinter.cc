@@ -32,9 +32,9 @@ void uMain::main() {
     const unsigned int numStudents = 2;
     const unsigned int numMachines = 3;
     const unsigned int numCouriers = 1;
-    Printer prt( numStudents, numMachines, numCouriers ); 
+    Printer prt( numStudents, numMachines, numCouriers );
 
-    // The following statements are grouped together into 
+    // The following statements are grouped together into
     // those that are expected to appear on the same line.
     prt.print( Printer::Parent, 'S' );
     prt.print( Printer::WATCardOffice, 'S' );
@@ -50,7 +50,7 @@ void uMain::main() {
     prt.print( Printer::Vending, 2, 'S', 2 );
     prt.print( Printer::WATCardOffice, 'C', 0, 5 );
 
-    prt.print( Printer::BottlingPlant, 'G', 11 ); 
+    prt.print( Printer::BottlingPlant, 'G', 11 );
     prt.print( Printer::NameServer, 'N', 0, 0 );
     prt.print( Printer::Truck, 'S' );
     prt.print( Printer::Student, 0, 'V', 0 );
@@ -63,7 +63,7 @@ void uMain::main() {
     prt.print( Printer::Truck, 'P', 11 );
 
     prt.print( Printer::Truck, 'd', 0, 11 );
-    
+
     prt.print( Printer::Truck, 'U', 0, 9 );
 
     prt.print( Printer::Truck, 'D', 0, 0 );
@@ -85,24 +85,24 @@ void uMain::main() {
 
     prt.print( Printer::Vending, 1, 'B', 2, 2 );
     prt.print( Printer::Vending, 2, 'R' );
-    
+
     prt.print( Printer::Student, 1, 'F' );
 
     prt.print( Printer::Parent, 'F' );
-    
+
     prt.print( Printer::WATCardOffice, 'F' );
-   
+
     prt.print( Printer::NameServer, 'F' );
-    
+
     prt.print( Printer::Truck, 'F' );
-    
+
     prt.print( Printer::BottlingPlant, 'F' );
-    
+
     prt.print( Printer::Vending, 0, 'F' );
-    
+
     prt.print( Printer::Vending, 1, 'F' );
 
     prt.print( Printer::Vending, 2, 'F' );
-    
+
     prt.print( Printer::Courier, 0, 'F' );
 }

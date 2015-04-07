@@ -1,10 +1,10 @@
-#ifndef __BANK_H__ 
+#ifndef __BANK_H__
 #define __BANK_H__
 
 _Monitor Bank {
     int * balances;
     uCondition * cond;  // One for each student.
-  public:
+public:
     Bank( unsigned int numStudents );
     ~Bank();
     void deposit( unsigned int id, unsigned int amount );
