@@ -34,11 +34,12 @@ _Task WATCardOffice {
     queue<Job *> jobs;
 
     _Task Courier {                        // communicates with bank
+        const unsigned int ID;
         Printer& prt;
         WATCardOffice & watcardOffice;
         void main();
 public:
-        Courier( Printer& prt, WATCardOffice & watcardOffice );
+        Courier( unsigned int id, Printer& prt, WATCardOffice & watcardOffice );
     };
 
     void main();
