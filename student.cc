@@ -36,11 +36,13 @@ void Student::main() {
                 } catch (VendingMachine::Funds& f) {
                     // need to transfer money
                     fwatCard = this->cardOffice.transfer(STUDENT_ID, (INITIAL_BALANCE + vendingMachine->cost()), fwatCard());
+                    yield(g_randGenerator(1,10));
                     continue;
                 } catch (VendingMachine::Stock& s) {
                     // out of stock, get a new vending machine
                     vendingMachine = this->nameServer.getMachine(STUDENT_ID);
                     printer.print(Printer::Student, STUDENT_ID, 'V', vendingMachine->getId());
+                    yield(g_randGenerator(1,10));
                     continue;
                 }
             } catch (WATCardOffice::Lost& l) {
