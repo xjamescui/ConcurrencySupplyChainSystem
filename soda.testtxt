@@ -1,15 +1,70 @@
 SODA TEST DOCUMENTATION:
 
 - TEST: invalid command line args
+        1%>ubuntu1204-006:~/cs343/A6> ./soda dsfd
+        Error: could not open input file "dsfd"
+        1%>ubuntu1204-006:~/cs343/A6> ./soda soda.config a
+        Seed must be a positive integer
+        1%>ubuntu1204-006:~/cs343/A6> ./soda soda.config -3
+        Seed must be a positive integer
+        1%>ubuntu1204-006:~/cs343/A6> ./soda soda.config 5 4 3 2 1
+        Usage: soda [ config-file [ random-seed ] ] 
 
-    1%>ubuntu1204-006:~/cs343/A6> ./soda dsfd
-    Error: could not open input file "dsfd"
-    1%>ubuntu1204-006:~/cs343/A6> ./soda soda.config a
-    Seed must be a positive integer
-    1%>ubuntu1204-006:~/cs343/A6> ./soda soda.config -3
-    Seed must be a positive integer
-    1%>ubuntu1204-006:~/cs343/A6> ./soda soda.config 5 4 3 2 1
-    Usage: soda [ config-file [ random-seed ] ] 
+- TEST: VALID INPUT FILES
+    - TEST: different MaxPurchases,MaxStockPerFlavour,MaxShippedPerFlavour: 
+        (low-buy, high stock, high production)
+        (high-buy, low stock, low production)
+        (low-buy, low stock, high production)
+    - TEST: 1 student
+    - TEST: 1 vending machine
+    - TEST: high TimeBetweenShipments
+    - TST:  high ParentalDelay
+    - TEST: many couriers and many students
+    - TEST: do a normal run with default values to make sure it works
+        Parent	WATOff	Names	Truck	Plant	Stud0	Stud1	Mach0	Mach1	Mach2	Cour0
+        *******	*******	*******	*******	*******	*******	*******	*******	*******	*******	*******
+        S	S	S					S2			
+        D1,1	C0,5	R0	S	S	S2,1	S2,1		S2	S2	S
+        D0,1	W	R1		G5						t0,5
+        D0,1	C1,5	R2								
+        D0,2		N0,0	P5	P	V0					
+                                d0,5				r			
+        D0,2		N1,1	U0,15			V1	R			
+                W		D0,0							T0,5
+        D1,3					B3		B2,0			t1,5
+        ...	...	...	...	...	F	...	...	...	...	...
+        D0,1				G6						
+                                P6	P						
+                                d1,6					r		
+        D0,3			U1,14					R		
+        D0,1			D1,0	G7						
+        D0,1										
+        D0,3										
+        D0,3										
+        D0,1			P7	P						
+                                d2,7						r	
+        D1,2			U2,13						R	T1,5
+        D1,1			D2,0	G4		B3		B2,1		
+        ...	...	...	...	...	...	F	...	...	...	...
+        D0,2										
+        D1,2										
+        D0,1										
+        ...	...	...	F	...	...	...	...	...	...	...
+        ...	...	...	...	F	...	...	...	...	...	...
+        D0,1										
+        ...	...	...	...	...	...	...	F	...	...	...
+        D0,1										
+        ...	...	...	...	...	...	...	...	F	...	...
+        D1,2										
+        ...	...	...	...	...	...	...	...	...	F	...
+        D0,3										
+        ...	...	F	...	...	...	...	...	...	...	...
+        D1,2										
+        D0,2										
+        ...	...	...	...	...	...	...	...	...	...	F
+        ...	F	...	...	...	...	...	...	...	...	...
+        D1,1										
+        D1,3										
+        F	...	...	...	...	...	...	...	...	...	...
 
-- TEST: do a normal run with default values to make sure it works
 
