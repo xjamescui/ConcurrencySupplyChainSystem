@@ -21,11 +21,11 @@ void VendingMachine::buy( Flavours flavour, WATCard &card ) {
     if (this->stockLevel[flavour] == 0) {
         uRendezvousAcceptor();
         throw Stock();
-    }
+    } // if
     if (card.getBalance() < SODA_COST) {
         uRendezvousAcceptor();
         throw Funds();
-    }
+    } // if
 
     this->stockLevel[flavour] -= 1;
     card.withdraw(SODA_COST);
@@ -62,7 +62,7 @@ void VendingMachine::main() {
         }
         or _When (this->restocking) _Accept(restocked) {
         } or _When (!this->restocking) _Accept(buy, inventory) {
-        }
+        } // _Accept
     } // for
 
     printer.print(Printer::Vending, ID, 'F');
