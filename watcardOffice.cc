@@ -46,7 +46,7 @@ void WATCardOffice::main() {
     Courier * couriers[ NUM_COURIERS ];
 
     for ( unsigned int i = 0; i < NUM_COURIERS; ++i ) {
-	couriers[i] = new Courier( *this );
+	couriers[i] = new Courier( prt, *this );
     }
 
     while ( true ) {
@@ -70,9 +70,10 @@ void WATCardOffice::main() {
     prt.print(Printer::WATCardOffice, 'F');
 }
 
-WATCardOffice::Courier::Courier( WATCardOffice & watcardOffice ) : watcardOffice( watcardOffice ) {}
+WATCardOffice::Courier::Courier(Printer& prt, WATCardOffice & watcardOffice ) : prt(prt), watcardOffice( watcardOffice ) {}
 
 void WATCardOffice::Courier::main() {
+    prt.print(Printer::Courier, 'S');
     while ( true ) {
 	Job * job = watcardOffice.requestWork();
 
@@ -86,7 +87,9 @@ void WATCardOffice::Courier::main() {
 	    card = new WATCard();
 	} // if
 
+        prt.print(Printer::Courier, 't', args.sid, args.amount);
 	watcardOffice.bank.withdraw( args.sid, args.amount );
+        prt.print(Printer::Courier, 'T', args.sid, args.amount);
 
 	// 1/6 chance of losing WatCard.
 	if ( g_randGenerator( 5 ) == 0 ) {
@@ -101,4 +104,5 @@ void WATCardOffice::Courier::main() {
 	delete job;
     } // while
 
+    prt.print(Printer::Courier, 'F');
 }
