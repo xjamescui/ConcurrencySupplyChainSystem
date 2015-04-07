@@ -36,7 +36,7 @@ _Task WATCardOffice {
     _Task Courier {                        // communicates with bank
         const unsigned int ID;             // id for this courier
         Printer& prt;
-        WATCardOffice & watcardOffice;     // refrence to the watcard office so we can call its methods
+        WATCardOffice & watcardOffice;     // reference to the watcard office so we can call its methods
         void main();
 public:
         Courier( unsigned int id, Printer& prt, WATCardOffice & watcardOffice );
