@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <cstdlib>
 #include "MPRNG.h"
 #include "config.h"
@@ -15,6 +16,14 @@ using namespace std;
 
 MPRNG g_randGenerator; // global
 
+bool convert(int &val, char *buffer) {		// convert C string to integer
+    std::stringstream ss( buffer );		// connect stream and buffer
+    ss >> dec >> val;				// convert integer from buffer
+    return ! ss.fail() &&			// conversion successful ?
+           // characters after conversion all blank ?
+           string( buffer ).find_first_not_of( " ", ss.tellg() ) == string::npos;
+} // convert
+
 void usage( char *argv[] ) {
     cerr << "Usage: " << "soda [ config-file [ random-seed ] ] " << endl;
     exit( EXIT_FAILURE );
@@ -27,7 +36,10 @@ void uMain::main() {
     int seed = getpid();
     switch (argc) {
     case 3:
-        seed = atoi(argv[2]);
+        if (!convert(seed,argv[2]) || seed < 0) {
+            cerr << "Seed must be a positive integer" << endl;
+            exit( EXIT_FAILURE );
+        }
     case 2:
         filename = argv[1];
     case 1:

@@ -1,1 +1,15 @@
 SODA TEST DOCUMENTATION:
+
+- TEST: invalid command line args
+
+    1%>ubuntu1204-006:~/cs343/A6> ./soda dsfd
+    Error: could not open input file "dsfd"
+    1%>ubuntu1204-006:~/cs343/A6> ./soda soda.config a
+    Seed must be a positive integer
+    1%>ubuntu1204-006:~/cs343/A6> ./soda soda.config -3
+    Seed must be a positive integer
+    1%>ubuntu1204-006:~/cs343/A6> ./soda soda.config 5 4 3 2 1
+    Usage: soda [ config-file [ random-seed ] ] 
+
+- TEST: do a normal run with default values to make sure it works
+
