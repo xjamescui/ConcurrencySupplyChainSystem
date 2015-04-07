@@ -82,4 +82,4 @@ ${EXEC} : ${OBJECTS}
 	${CXX} ${CXXFLAGS} $^ -o $@
 
 clean :						# remove files that can be regenerated
-	rm -f *.d *.o ${EXEC} ${BANK_EXEC} ${VM_EXEC} ${STUDENT_EXEC} ${PARENT_EXEC} ${WATCARD_EXEC} ${PLANT_EXEC} ${TRUCK_EXEC} ${WATCARD_OFFICE_EXEC} ${PRINTER_EXEC}
+	rm -f *.d *.o ${EXEC} ${BANK_EXEC} ${VM_EXEC} ${NS_EXEC} ${STUDENT_EXEC} ${PARENT_EXEC} ${WATCARD_EXEC} ${PLANT_EXEC} ${TRUCK_EXEC} ${WATCARD_OFFICE_EXEC} ${PRINTER_EXEC}
