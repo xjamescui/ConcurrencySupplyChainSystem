@@ -8,31 +8,31 @@ MPRNG mprng(getpid());
 _Task Depositor {
     Bank &bank;
     void main() {
-	for ( int i = 0; i < 10; ++i ) {
-	    yield( mprng(10) );
-	    const unsigned int randStudent = mprng(1);
-	    const unsigned int randAmount = mprng(10);
-	    bank.deposit( randStudent, randAmount );
-	    cout << "Deposited $" << randAmount << " to student " << randStudent << endl;
-	}
+        for ( int i = 0; i < 10; ++i ) {
+            yield( mprng(10) );
+            const unsigned int randStudent = mprng(1);
+            const unsigned int randAmount = mprng(10);
+            bank.deposit( randStudent, randAmount );
+            cout << "Deposited $" << randAmount << " to student " << randStudent << endl;
+        }
     }
-  public:
+public:
     Depositor( Bank & bank ) : bank(bank) {}
 };
 
 _Task Withdrawer {
     Bank &bank;
     void main() {
-	for ( int i = 0; i < 10; ++i ) {
-	    yield( mprng(10) );
-	    const unsigned int randStudent = mprng(1);
-	    const unsigned int randAmount = mprng(10);
-	    cout << "Attempting to withdraw $" << randAmount << " from student " << randStudent << endl;
-	    bank.withdraw( randStudent, randAmount );
-	    cout << "Withdrew $" << randAmount << " from student " << randStudent << endl;
-	}
+        for ( int i = 0; i < 10; ++i ) {
+            yield( mprng(10) );
+            const unsigned int randStudent = mprng(1);
+            const unsigned int randAmount = mprng(10);
+            cout << "Attempting to withdraw $" << randAmount << " from student " << randStudent << endl;
+            bank.withdraw( randStudent, randAmount );
+            cout << "Withdrew $" << randAmount << " from student " << randStudent << endl;
+        }
     }
-  public:
+public:
     Withdrawer( Bank & bank ) : bank(bank) {}
 };
 

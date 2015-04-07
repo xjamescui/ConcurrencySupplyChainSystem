@@ -10,7 +10,7 @@ _Task Parent {
     const unsigned int NUM_STUDENTS;
     const unsigned int PARENTAL_DELAY;
     void main();
-  public:
+public:
     Parent( Printer &prt, Bank &bank, unsigned int numStudents, unsigned int parentalDelay );
 };
 

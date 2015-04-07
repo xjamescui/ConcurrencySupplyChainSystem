@@ -34,7 +34,7 @@ void uMain::main() {
     // has no stock and no money
     assert(card.getBalance() == 0);
     cout << "buying soda but no stock and with 0 balance on card.." << endl;
-    try{
+    try {
         vm.buy((VendingMachine::Flavours)1, card);
     } catch (VendingMachine::Funds &f) {
         cout << "BAD! caught Funds exception" << endl;
@@ -59,7 +59,7 @@ void cardAndMachineTests(WATCard &card, VendingMachine &vm) {
     // has stock but no money
     assert (card.getBalance() == 0);
     cout << "buying soda but not enough money...." << endl;
-    try{
+    try {
         vm.buy((VendingMachine::Flavours)1, card);
     } catch (VendingMachine::Funds &f) {
         cout << "GOOD! caught Funds exception" << endl;
@@ -69,11 +69,11 @@ void cardAndMachineTests(WATCard &card, VendingMachine &vm) {
 
     // has stock and enough money, now buy again
     cout << "reloading card with soda cost..." << endl;
-    card.deposit(SODA_COST); 
+    card.deposit(SODA_COST);
     assert(card.getBalance() == SODA_COST);
 
     cout << "now buying again with stock and funds..." << endl;
-    try{
+    try {
         vm.buy((VendingMachine::Flavours)1, card);
     } catch (VendingMachine::Funds &f) {
         cout << "BAD! caught Funds exception" << endl;

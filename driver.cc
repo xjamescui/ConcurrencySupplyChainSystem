@@ -18,14 +18,14 @@ void uMain::main() {
     string filename = "soda.config";
     int seed = getpid();
     switch (argc) {
-        case 3:
-            seed = atoi(argv[2]);
-        case 2:
-            filename = argv[1];
-        case 1:
-            break;
-        default:
-            usage(argv);
+    case 3:
+        seed = atoi(argv[2]);
+    case 2:
+        filename = argv[1];
+    case 1:
+        break;
+    default:
+        usage(argv);
     } // switch
 
     g_randGenerator.seed(seed);

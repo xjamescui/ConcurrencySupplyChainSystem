@@ -14,7 +14,7 @@ _Task NameServer {
     unsigned int registrationCount;
 
     void main();
-  public:
+public:
     NameServer( Printer &prt, unsigned int numVendingMachines, unsigned int numStudents );
     ~NameServer();
     void VMregister( VendingMachine *vendingmachine );

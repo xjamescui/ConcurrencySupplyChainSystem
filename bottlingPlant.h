@@ -20,11 +20,11 @@ _Task BottlingPlant {
     unsigned int produced[NUM_FLAVOURS];
     void productionRun();
     void main();
-  public:
+public:
     _Event Shutdown {};                    // shutdown plant
     BottlingPlant( Printer &prt, NameServer &nameServer, unsigned int numVendingMachines,
-                 unsigned int maxShippedPerFlavour, unsigned int maxStockPerFlavour,
-                 unsigned int timeBetweenShipments );
+                   unsigned int maxShippedPerFlavour, unsigned int maxStockPerFlavour,
+                   unsigned int timeBetweenShipments );
     void getShipment( unsigned int cargo[] );
 };
 
