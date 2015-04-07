@@ -209,7 +209,7 @@ CONCLUSION: handles invalid command line args correctly
 
         CONCLUSION: works correctly, low supply satisfies low buying demand. A lot of wasted/leftover bottles on truck after each shipment run
 
-    - TEST: 1 student (maxPurchases = 3)
+    - TEST: 1 student
         1%>ubuntu1204-004:~/cs343/A6> cat sodaONESTUDENT.config 
         SodaCost                2    # Manufacturer Suggested Retail Price (MSRP) per bottle
         NumStudents             1    # number of students to create
@@ -255,7 +255,7 @@ CONCLUSION: handles invalid command line args correctly
 
         CONCLUSION: it works correctly for 1 student.
 
-    - TEST: 1 vending machine (maxPurchases = 3)
+    - TEST: 1 vending machine
         1%>ubuntu1204-004:~/cs343/A6> cat sodaONEVM.config 
         SodaCost                2    # Manufacturer Suggested Retail Price (MSRP) per bottle
         NumStudents             2    # number of students to create
