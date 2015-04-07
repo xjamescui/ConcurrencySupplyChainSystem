@@ -6,13 +6,13 @@ Bank::Bank( unsigned int numStudents ) :
 
     for ( unsigned int id = 0; id < numStudents; ++id ) {
         balances[id] = 0;
-    }
-}
+    } // for
+} // constructor
 
 Bank::~Bank() {
     delete [] balances;
     delete [] cond;
-}
+} // destructor
 
 void Bank::deposit( unsigned int id, unsigned int amount ) {
     const int prevBalance = balances[id];
@@ -25,8 +25,8 @@ void Bank::deposit( unsigned int id, unsigned int amount ) {
     // calling withdraw() for the same student at a time.
     if ( prevBalance < 0 && balances[id] >= 0 ) {
         cond[id].signal();
-    }
-}
+    } // if
+} // deposit
 
 void Bank::withdraw( unsigned int id, unsigned int amount ) {
     balances[id] -= amount;
@@ -34,5 +34,5 @@ void Bank::withdraw( unsigned int id, unsigned int amount ) {
     if ( balances[id] < 0 ) {
         // Insufficient funds.  Wait until there are sufficient funds.
         cond[id].wait();
-    }
-}
+    } // if
+} // withdraw

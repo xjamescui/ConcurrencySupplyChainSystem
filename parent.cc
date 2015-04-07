@@ -6,7 +6,7 @@ Parent::Parent( Printer &prt, Bank &bank, unsigned int numStudents, unsigned int
     bank( bank ),
     NUM_STUDENTS( numStudents ),
     PARENTAL_DELAY( parentalDelay ) {
-} // Parent::Parent
+} // constructor 
 
 void Parent::main() {
     prt.print(Printer::Parent, 'S');

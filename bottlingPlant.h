@@ -16,7 +16,7 @@ _Task BottlingPlant {
 
     bool shutdown;
 
-    unsigned int totalProduced;
+    unsigned int totalProduced;     // Total produced by plant for current production run.
     unsigned int produced[NUM_FLAVOURS];
     void productionRun();
     void main();
